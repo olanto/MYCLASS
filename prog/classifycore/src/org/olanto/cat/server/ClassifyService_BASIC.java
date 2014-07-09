@@ -1,3 +1,23 @@
+/**********
+    Copyright © 2003-2014 Olanto Foundation Geneva
+
+   This file is part of myCLASS.
+
+   myLCASS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    myCAT is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with myCAT.  If not, see <http://www.gnu.org/licenses/>.
+
+**********/
+
 package org.olanto.cat.server;
 
 import org.olanto.idxvli.DoParse;
@@ -10,14 +30,6 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  *  service de classification.
  *
- * <p>
- * <b>JG-2010
- * <p>author: Jacques Guyot
- * <p>copyright Jacques Guyot 2010
- * <p>l'utilisation de cette classe est strictement limitée aux ayant droit
- * <p>l'utilisation de cette classe nécessite une autorisation explicite de son auteur
- * JG-2008</b>
- *<p>
  */
 class ClassifierRequest {
 
