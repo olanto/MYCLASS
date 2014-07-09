@@ -1,12 +1,37 @@
-*.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+data/*
+dist/*
+corpus/*
+template/data_empty/*
+TEMP/*
+SAVE/*
+GWT/*
+logs/*
+private/*
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#################
+## Netbeans
+#################
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+prog/*/nbproject/private/
+prog/*/build/
+prog/*/nbbuild/
+prog/*/dist/
+prog/*/store/
+prog/*/nbdist/
+prog/*/nbactions.xml
+prog/*/nb-configuration.xml
+
+
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+
