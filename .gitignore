@@ -1,5 +1,6 @@
 
 data/*
+sample/*
 dist/*
 corpus/*
 template/data_empty/*
