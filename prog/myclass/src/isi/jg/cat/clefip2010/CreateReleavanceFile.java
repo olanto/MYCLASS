@@ -1,9 +1,9 @@
 package isi.jg.cat.clefip2010;
 
-import isi.jg.idxvli.IdxStructure;
+import org.olanto.idxvli.IdxStructure;
 import java.io.*;
 import java.util.regex.Pattern;
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 
 /**
  *

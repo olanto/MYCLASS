@@ -2,7 +2,7 @@ package isi.jg.cat.n2.test;
 
 import java.io.*;
 import java.util.Hashtable;
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 
 /**
  *

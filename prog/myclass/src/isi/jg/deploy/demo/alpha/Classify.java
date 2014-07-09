@@ -1,8 +1,10 @@
 package isi.jg.deploy.demo.alpha;
 
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import isi.jg.mnn.*;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.idxvli.DoParse;
+import org.olanto.cat.mnn.Categorizer;
+import org.olanto.cat.mnn.Guess;
+import org.olanto.util.Timer;
 
 /**
  * *

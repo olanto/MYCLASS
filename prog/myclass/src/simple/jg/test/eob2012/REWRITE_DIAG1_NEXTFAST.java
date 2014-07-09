@@ -1,12 +1,12 @@
 package simple.jg.test.eob2012;
 
-import isi.jg.deploy.diag1.*;
-import isi.jg.idxvli.*;
-import isi.jg.idxvli.ql.QueryOperator;
-import isi.jg.util.Timer;
-import static isi.jg.util.Messages.*;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.idxvli.ql.QueryOperator;
+import org.olanto.util.Timer;
+import static org.olanto.util.Messages.*;
 import java.io.*;
 import java.util.Hashtable;
+import org.olanto.idxvli.ql.QueryOperator;
 
 /**
  * TOTAL 4,40 countrealnext:1002428

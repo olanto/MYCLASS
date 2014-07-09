@@ -1,11 +1,7 @@
 package simple.jg.deploy.wipo2011;
 
-import isi.jg.deploy.gamma.*;
-import simple.jg.deploy.wipo2011.ConfigurationForCat;
+import org.olanto.idxvli.IdxStructure;
 import java.io.*;
-import isi.jg.idxvli.*;
-import isi.jg.onto.LexicManager;
-import isi.jg.onto.Terms;
 
 /**Test de l'indexeur, mode query */
 public class GetListOfDoc {

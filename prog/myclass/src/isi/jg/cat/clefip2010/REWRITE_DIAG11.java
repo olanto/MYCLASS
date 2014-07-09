@@ -1,11 +1,11 @@
 package isi.jg.cat.clefip2010;
 
+import org.olanto.idxvli.IdxStructure;
 import isi.jg.deploy.diag1.*;
 import isi.jg.deploy.demo.alpha.SomeConstant;
-import isi.jg.idxvli.*;
-import isi.jg.idxvli.ql.QueryOperator;
-import isi.jg.util.Timer;
-import static isi.jg.util.Messages.*;
+import org.olanto.idxvli.ql.QueryOperator;
+import org.olanto.util.Timer;
+import static org.olanto.util.Messages.*;
 import java.io.*;
 import java.util.Hashtable;
 

@@ -5,11 +5,11 @@
 
 package isi.jg.deploy.frende;
 
-import isi.jg.util.TimerNano;
+import org.olanto.util.TimerNano;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 /**
  *
  * @author jg

@@ -1,11 +1,11 @@
 package simple.jg.test.eob2012;
 
-import isi.jg.cat.Experiment;
-import isi.jg.cat.NNBottomGroup;
-import isi.jg.cat.NNOneN;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import static isi.jg.cat.GetProp.*;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.cat.Experiment;
+import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.NNOneN;
+import org.olanto.util.Timer;
+import static org.olanto.cat.GetProp.*;
 
 /**
  * *

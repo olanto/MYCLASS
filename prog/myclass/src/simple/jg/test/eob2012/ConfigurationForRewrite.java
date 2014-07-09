@@ -1,8 +1,9 @@
 package simple.jg.test.eob2012;
 
-import isi.jg.idxvli.*;
-import static isi.jg.idxvli.IdxEnum.*;
-import static isi.jg.idxvli.IdxConstant.*;
+import org.olanto.idxvli.IdxInit;
+import org.olanto.idxvli.IdxConstant;
+import static org.olanto.idxvli.IdxEnum.*;
+import static org.olanto.idxvli.IdxConstant.*;
 
 
 /**

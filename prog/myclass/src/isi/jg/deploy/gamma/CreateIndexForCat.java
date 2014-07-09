@@ -1,7 +1,7 @@
 package isi.jg.deploy.gamma;
 
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.util.Timer;
 
 
 /**

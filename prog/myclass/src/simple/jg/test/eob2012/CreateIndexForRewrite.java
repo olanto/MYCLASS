@@ -1,9 +1,9 @@
 package simple.jg.test.eob2012;
 
+import org.olanto.idxvli.IdxStructure;
 import isi.jg.deploy.diag1.*;
 import isi.jg.deploy.demo.alpha.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.util.Timer;
 
 /**
  * *

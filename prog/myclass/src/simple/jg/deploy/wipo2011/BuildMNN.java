@@ -1,11 +1,12 @@
 package simple.jg.deploy.wipo2011;
 
-import isi.jg.cat.NNBottomGroup;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.cat.NNBuildTree;
+import org.olanto.cat.NNOneN;
+import org.olanto.cat.NNBottomGroup;
 import isi.jg.deploy.frende.*;
-import static isi.jg.cat.GetProp.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import isi.jg.cat.*;
+import static org.olanto.cat.GetProp.*;
+import org.olanto.util.Timer;
 
 
 /**

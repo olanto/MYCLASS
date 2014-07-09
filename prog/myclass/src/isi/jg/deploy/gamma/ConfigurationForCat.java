@@ -1,12 +1,13 @@
 package isi.jg.deploy.gamma;
 
+import org.olanto.idxvli.IdxInit;
+import org.olanto.idxvli.IdxConstant;
 import isi.jg.deploy.gamma.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.util.Timer;
 import simple.jg.deploy.wipo2011.SomeConstant;
 import simple.jg.deploy.wipo2011.TokenCatNative;
-import static isi.jg.idxvli.IdxEnum.*;
-import static isi.jg.idxvli.IdxConstant.*;
+import static org.olanto.idxvli.IdxEnum.*;
+import static org.olanto.idxvli.IdxConstant.*;
 
 
 /**

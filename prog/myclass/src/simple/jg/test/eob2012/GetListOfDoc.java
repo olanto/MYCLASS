@@ -1,11 +1,8 @@
 package simple.jg.test.eob2012;
 
-import isi.jg.deploy.gamma.*;
+import org.olanto.idxvli.IdxStructure;
 import simple.jg.deploy.wipo2011.ConfigurationForCat;
 import java.io.*;
-import isi.jg.idxvli.*;
-import isi.jg.onto.LexicManager;
-import isi.jg.onto.Terms;
 
 /**Test de l'indexeur, mode query */
 public class GetListOfDoc {

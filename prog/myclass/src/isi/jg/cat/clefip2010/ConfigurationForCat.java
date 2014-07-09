@@ -1,10 +1,11 @@
 package isi.jg.cat.clefip2010;
 
+import org.olanto.idxvli.IdxInit;
+import org.olanto.idxvli.IdxConstant;
 import isi.jg.deploy.frende.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import static isi.jg.idxvli.IdxEnum.*;
-import static isi.jg.idxvli.IdxConstant.*;
+import org.olanto.util.Timer;
+import static org.olanto.idxvli.IdxEnum.*;
+import static org.olanto.idxvli.IdxConstant.*;
 
 
 /**

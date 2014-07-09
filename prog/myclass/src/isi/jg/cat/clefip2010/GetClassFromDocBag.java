@@ -4,14 +4,14 @@
  */
 package isi.jg.cat.clefip2010;
 
-import isi.jg.idxvli.IdxStructure;
+import org.olanto.idxvli.IdxStructure;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.regex.Pattern;
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 
 /**
  *

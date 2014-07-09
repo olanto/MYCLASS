@@ -1,16 +1,16 @@
 package simple.jg.deploy.wipo2013;
 
+import org.olanto.idxvli.IdxStructure;
 import isi.jg.deploy.gamma.*;
 import simple.jg.deploy.wipo2011.ConfigurationForCat;
 import isi.jg.deploy.frende.*;
 import isi.jg.deploy.gamma.*;
-import isi.jg.cat.Experiment;
-import isi.jg.cat.NNBottomGroup;
-import isi.jg.cat.NNOneN;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.cat.Experiment;
+import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.NNOneN;
+import org.olanto.util.Timer;
 import java.util.List;
-import static isi.jg.cat.GetProp.*;
+import static org.olanto.cat.GetProp.*;
 
 /**
  * *

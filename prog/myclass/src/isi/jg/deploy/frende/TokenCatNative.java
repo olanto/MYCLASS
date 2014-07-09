@@ -1,10 +1,12 @@
 package isi.jg.deploy.frende;
 
+import org.olanto.idxvli.extra.Stemmer;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.idxvli.TokenDefinition;
+import org.olanto.idxvli.DoParse;
 import java.io.*;
 import java.text.*;
-import isi.jg.idxvli.*;
-import isi.jg.idxvli.extra.*;
-import static isi.jg.idxvli.IdxConstant.*;
+import static org.olanto.idxvli.IdxConstant.*;
 
 
 /**

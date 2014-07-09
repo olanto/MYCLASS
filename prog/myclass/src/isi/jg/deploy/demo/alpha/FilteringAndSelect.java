@@ -1,9 +1,7 @@
 package isi.jg.deploy.demo.alpha;
 
-import java.rmi.*;
 import java.io.*;
-import isi.jg.conman.server.*;
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

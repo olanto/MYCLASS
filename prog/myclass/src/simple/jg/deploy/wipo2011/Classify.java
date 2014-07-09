@@ -1,9 +1,11 @@
 package simple.jg.deploy.wipo2011;
 
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.idxvli.DoParse;
+import org.olanto.cat.mnn.Categorizer;
+import org.olanto.cat.mnn.Guess;
 import isi.jg.deploy.frende.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import isi.jg.mnn.*;
+import org.olanto.util.Timer;
 
 /**
  * *

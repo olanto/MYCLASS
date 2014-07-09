@@ -5,7 +5,7 @@
 
 package isi.jg.deploy.demo.alpha;
 
-import static isi.jg.util.Messages.*;
+import static org.olanto.util.Messages.*;
 /**
  *
  * @author jg

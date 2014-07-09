@@ -1,11 +1,11 @@
 package isi.jg.deploy.demo.alpha;
 
-import isi.jg.cat.ExperimentBal;
-import isi.jg.cat.NNBottomGroup;
-import isi.jg.cat.NNOneNBal;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
-import static isi.jg.cat.GetProp.*;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.cat.ExperimentBal;
+import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.NNOneNBal;
+import org.olanto.util.Timer;
+import static org.olanto.cat.GetProp.*;
 
 /**
  * *

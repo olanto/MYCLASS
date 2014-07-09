@@ -2,8 +2,8 @@ package isi.jg.deploy.demo.alpha;
 
 import java.rmi.*;
 import java.io.*;
-import isi.jg.conman.server.*;
-import static isi.jg.util.Messages.*;
+import org.olanto.conman.server.*;
+import static org.olanto.util.Messages.*;
 
 /**
  *

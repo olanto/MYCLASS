@@ -1,12 +1,12 @@
 package isi.jg.deploy.demo.alpha;
 
-import isi.jg.cat.ExperimentOver;
-import isi.jg.cat.NNBottomGroup;
-import isi.jg.cat.NNOneN_OverSampling;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.cat.ExperimentOver;
+import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.NNOneN_OverSampling;
+import org.olanto.util.Timer;
 import java.util.List;
-import static isi.jg.cat.GetProp.*;
+import static org.olanto.cat.GetProp.*;
 
 /**
  * *
