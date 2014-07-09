@@ -2,7 +2,7 @@ package simple.jg.deploy.wipo2011;
 
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.NNOneN;
 import org.olanto.util.Timer;
 import static org.olanto.cat.GetProp.*;

@@ -1,5 +1,8 @@
 package org.olanto.cat;
 
+import org.olanto.cat.util.NNLocalGroup;
+import org.olanto.cat.util.NNBottomGroup;
+import org.olanto.cat.util.NNWordWeight;
 import org.olanto.cat.util.RandomizeDoc;
 import org.olanto.idxvli.DoParse;
 import static org.olanto.idxvli.IdxConstant.*;

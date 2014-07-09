@@ -4,7 +4,7 @@ import org.olanto.idxvli.IdxStructure;
 import isi.jg.deploy.frende.*;
 import isi.jg.deploy.gamma.*;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.NNOneN;
 import org.olanto.util.Timer;
 import java.util.List;

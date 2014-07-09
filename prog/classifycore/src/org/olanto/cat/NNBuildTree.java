@@ -1,12 +1,11 @@
 package org.olanto.cat;
 
 
+import org.olanto.cat.util.NNLocalGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.util.RandomizeDoc;
 import org.olanto.idxvli.IdxStructure;
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.lang.reflect.*;
 
 /**
  * Génération d'un arbre de réseaux de neurones.

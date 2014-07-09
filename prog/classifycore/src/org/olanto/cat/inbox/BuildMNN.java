@@ -3,7 +3,7 @@ package org.olanto.cat.inbox;
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.NNBuildTree;
 import org.olanto.cat.NNOneN;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.util.Timer;
 import static org.olanto.idxvli.IdxEnum.*;
 import static org.olanto.idxvli.IdxConstant.*;

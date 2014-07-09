@@ -3,7 +3,7 @@ package isi.jg.deploy.gamma;
 import org.olanto.idxvli.IdxStructure;
 import simple.jg.deploy.wipo2011.ConfigurationForCat;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.NNOneN;
 import org.olanto.util.Timer;
 import java.util.List;

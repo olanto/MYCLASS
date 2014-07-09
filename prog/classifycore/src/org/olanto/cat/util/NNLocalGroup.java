@@ -1,38 +1,36 @@
-package isi.jg.cat;
+package org.olanto.cat.util;
 
 /**
- * Une classe pour effectuer la classification des documents
- * <p>author: Jacques Guyot
- * <p>copyright Jacques Guyot 2009
- * <p>l'utilisation de cette classe est strictement limitée au groupe ISI
- * toute autre utilisation est sujette à autorisation
+ * Une classe pour effectuer la classification des documents <p>author: Jacques
+ * Guyot <p>copyright Jacques Guyot 2009 <p>l'utilisation de cette classe est
+ * strictement limitée au groupe ISI toute autre utilisation est sujette à
+ * autorisation
  *
- * 
+ *
  */
+import org.olanto.cat.util.RandomizeDoc;
+import org.olanto.idxvli.IdxStructure;
 import java.io.*;
 import java.util.*;
-import isi.jg.idxvli.*;
 
 /* local au package */
-public class NNLocalGroupFiltered {
+public class NNLocalGroup {
 
-    Hashtable docgroup, group, groupinv;
+    Hashtable docgroup, group;
+    public Hashtable groupinv;
     int grouplength = 0;
-    int maxgroup = 0;
+    public int maxgroup = 0;
     boolean verbose = true;
     IdxStructure Indexer;
     NNBottomGroup BootGroup;
     int[] limitGroup = new int[100];  // limite groupe size pour les différentes longueurs
-    String[] filter;
-    int maxtrain;
 
-    NNLocalGroupFiltered(int _maxtrain, String[] _filter, NNBottomGroup _BootGroup, IdxStructure _Indexer, int _grouplength, boolean _verbose) {
+    public NNLocalGroup(NNBottomGroup _BootGroup, IdxStructure _Indexer, int _grouplength, boolean _verbose) {
         limitGroup[1] = 1;
         limitGroup[3] = 1;
         limitGroup[4] = 1;
-        limitGroup[7] = 1;
-        maxtrain=_maxtrain;
-        filter = _filter;
+        limitGroup[7] = 10;
+        limitGroup[8] = 10;
         BootGroup = _BootGroup;
         Indexer = _Indexer;
         verbose = _verbose;
@@ -46,19 +44,19 @@ public class NNLocalGroupFiltered {
         System.out.println("maxgroup:" + maxgroup);
     }
 
-    int[] getGroup(int d) {
+    public int[] getGroup(int d) {
         return (int[]) docgroup.get(new Integer(d));
     }
 
     /*  public  boolean inThisGroup(String s){
-    //System.out.println(s);
-    int  [] res =((int[])docgroup.get(s));
-    if (res==null) {
-    return false;}
-    return true;
-    }
+     //System.out.println(s);
+     int  [] res =((int[])docgroup.get(s));
+     if (res==null) {
+     return false;}
+     return true;
+     }
      */
-    int getMainGroup(int d) {
+    public int getMainGroup(int d) {
         int[] res = ((int[]) docgroup.get(new Integer(d)));
         if (res == null) {
             //System.out.println("error in main group:"+d);
@@ -68,7 +66,7 @@ public class NNLocalGroupFiltered {
         return res[0];
     }
 
-    int groupSize(int d) {
+    public int groupSize(int d) {
         //System.out.println(s);
         int[] res = ((int[]) docgroup.get(new Integer(d)));
         if (res == null) {
@@ -78,7 +76,7 @@ public class NNLocalGroupFiltered {
         return res.length;
     }
 
-    int getgroup(String s) {
+    public int getgroup(String s) {
         String radical = s.substring(0, grouplength);
         Integer n = (Integer) group.get(radical);
         if (n == null) {
@@ -87,11 +85,11 @@ public class NNLocalGroupFiltered {
         return n.intValue();
     }
 
-    String getgroupName(int n) {
+    public String getgroupName(int n) {
         return (String) groupinv.get(new Integer(n));
     }
 
-    void add(int d) {
+    public void add(int d) {
         if (BootGroup.groupSize(d) != 0) {  // test si existe un groupe
             //System.out.println(s);
             int maxclass = 1;
@@ -119,87 +117,45 @@ public class NNLocalGroupFiltered {
                 }
             }
             docgroup.put(new Integer(d), classdoc);
-        //System.out.println(d+":"+maxclass);
+            //System.out.println(d+":"+maxclass);
         }
     }
 
-    void addFirst(int d) {
-        if (BootGroup.groupSize(d) != 0) {  // test si existe un groupe
+    public void addFirst(int d) {
+        if (BootGroup.groupSize(d) != 0) {  // test si existe un groupe           
             if (BootGroup.inclass[BootGroup.getMainGroup(d)][0] >= limitGroup[grouplength]) {  // test si assez de training dans le groupe
                 String radical = BootGroup.getgroupName(BootGroup.getMainGroup(d));
                 //System.out.println("doc:"+d+":"+BootGroup.doctype[d]+"-> "+radical);
                 radical = radical.substring(0, grouplength);
-                if (filter(radical)) {
-                    Integer n = (Integer) group.get(radical);
-                    if (n == null) {
-                        group.put(radical, new Integer(maxgroup));
-                        groupinv.put(new Integer(maxgroup), radical);
-                        if (verbose) {
-                            System.out.println(radical + "," + maxgroup);
-                        }
-                        maxgroup++;
+                Integer n = (Integer) group.get(radical);
+                if (n == null) {
+                    group.put(radical, new Integer(maxgroup));
+                    groupinv.put(new Integer(maxgroup), radical);
+                    if (verbose) {
+                        System.out.println(radical + "," + maxgroup);
                     }
+                    maxgroup++;
                 }
             }
         }
     }
-    void addTest(int d) {
-        if (BootGroup.groupSize(d) != 0) {  // test si existe un groupe
-            if (BootGroup.inclass[BootGroup.getMainGroup(d)][0] >= limitGroup[grouplength]) {  // test si assez de training dans le groupe
-                String radical = BootGroup.getgroupName(BootGroup.getMainGroup(d));
-                //System.out.println("doc:"+d+":"+BootGroup.doctype[d]+"-> "+radical);
-                radical = radical.substring(0, grouplength);
-                    Integer n = (Integer) group.get(radical);
-                    if (n == null) {
-                        group.put(radical, new Integer(maxgroup));
-                        groupinv.put(new Integer(maxgroup), radical);
-                        if (verbose) {
-                            System.out.println(radical + "," + maxgroup);
-                        }
-                        maxgroup++;
-                    }
-                }
-        }
-    }
 
-
-       boolean filter(String radical){
-        for (int i=0; i < filter.length; i++) {
-            if (filter[i].equals(radical)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    void getNextFirst() {  // OK
+    public void getNextFirst() {  // OK
         int max = 0;
-        for (int i = 0; i < maxtrain; i++) {
+        for (int i = 0; i < RandomizeDoc.lasttraindoc; i++) {
             addFirst(RandomizeDoc.rand[i]);  // complete whit a blanck
-        // if (max>200) break; else max++; // only for test
-        }
-        System.out.println("train maxgroup:"+maxgroup);
-        for (int i = 0; i < maxtrain; i++) {
-            add(RandomizeDoc.rand[i]);  // complete whit a blanck
-        // if (max>200) break; else max++; // only for test
+            // if (max>200) break; else max++; // only for test
         }
     }
 
-    void getNext() {
-          System.out.println("test limit:"+maxtrain+
-                  "/"+RandomizeDoc.lasttestdoc);
-       for (int i = maxtrain; i < RandomizeDoc.lasttestdoc; i++) {  // all document in the scope training+test
-            addTest(RandomizeDoc.rand[i]);  // complete whit a blanck
-        // if (max>200) break; else max++; // only for test
-        }
-         System.out.println("test maxgroup:"+maxgroup);
-       for (int i = maxtrain; i < RandomizeDoc.lasttestdoc; i++) {  // all document in the scope training+test
+    public void getNext() {
+        for (int i = 0; i < RandomizeDoc.lasttestdoc; i++) {  // all document in the scope training+test
             add(RandomizeDoc.rand[i]);  // complete whit a blanck
-        // if (max>200) break; else max++; // only for test
+            // if (max>200) break; else max++; // only for test
         }
     }
 
-    void showMultiClass() {
+    public void showMultiClass() {
         int[][] multi = new int[maxgroup][maxgroup];
         for (Enumeration e = docgroup.keys(); e.hasMoreElements();) {
             String entry = (String) e.nextElement();
@@ -217,8 +173,3 @@ public class NNLocalGroupFiltered {
 
     }
 }
-
-
-
-
-

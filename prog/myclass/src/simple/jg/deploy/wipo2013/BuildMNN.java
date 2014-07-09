@@ -3,7 +3,7 @@ package simple.jg.deploy.wipo2013;
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.NNBuildTree;
 import org.olanto.cat.NNOneN;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import isi.jg.deploy.frende.*;
 import static org.olanto.cat.GetProp.*;
 import org.olanto.util.Timer;

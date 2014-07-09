@@ -1,5 +1,6 @@
 package org.olanto.cat;
 
+import org.olanto.cat.util.NNBottomGroup;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;

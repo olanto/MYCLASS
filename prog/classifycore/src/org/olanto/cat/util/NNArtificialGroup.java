@@ -1,8 +1,8 @@
-package isi.jg.cat;
+package org.olanto.cat.util;
 
 
 
-import isi.jg.idxvli.IdxStructure;
+import org.olanto.idxvli.IdxStructure;
 import java.util.*;
 
 

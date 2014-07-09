@@ -4,7 +4,7 @@ import org.olanto.idxvli.IdxStructure;
 import eob.heuristic.Init_BaseLine_CatAndBuildNB;
 import eob.heuristic.MixCatAndNBPrediction;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.NNOneN;
 import org.olanto.util.Timer;
 import static org.olanto.cat.GetProp.*;

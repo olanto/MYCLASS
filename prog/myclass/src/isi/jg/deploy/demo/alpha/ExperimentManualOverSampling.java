@@ -2,7 +2,7 @@ package isi.jg.deploy.demo.alpha;
 
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.NNBottomGroup;
+import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.NNOneN_OverSampling;
 import org.olanto.util.Timer;
 import static org.olanto.cat.GetProp.*;

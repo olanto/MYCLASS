@@ -1,10 +1,10 @@
-package isi.jg.cat;
+package org.olanto.cat.util;
 
 
 
+import org.olanto.idxvli.IdxStructure;
 import java.io.*;
 import java.util.*;
-import isi.jg.idxvli.*;
 
 
 
@@ -63,12 +63,12 @@ public class NNBottomGroup{
     boolean verbose=true;
     boolean showerror=true;
     IdxStructure Indexer;
-    byte[] doctype;
+    public byte[] doctype;
     int[][] docgroup;
     int[][] inclass; // contient la répartition des catalogues
     
-    static final byte TESTDOC=-1;
-    static final byte TRAINDOC=1;
+    public static final byte TESTDOC=-1;
+    public static final byte TRAINDOC=1;
     static final byte NOTUSEDDOC=0;
     static final String SEPARATOR="\t";
     
@@ -155,7 +155,7 @@ public class NNBottomGroup{
     }
     
     
-    int[] getGroup(int d){
+    public int[] getGroup(int d){
         return docgroup[d];
     }
     
@@ -176,7 +176,7 @@ public class NNBottomGroup{
         return docgrp;
     }
     
-    boolean inThisGroup(int d, String prefix, byte type){
+    public boolean inThisGroup(int d, String prefix, byte type){
         //System.out.println(s);
         if (doctype[d]!=type) {
             return false;}
@@ -225,7 +225,7 @@ public class NNBottomGroup{
         }
     }
     
-    int groupSize(int d){
+    public int groupSize(int d){
         //System.out.println(s);
         if (docgroup[d]==null) {
             //System.out.println("error in groupSize:"+d);
@@ -324,7 +324,7 @@ catch(Exception e){
     }
     
     
-    void getNextFirst(){  // OK
+    public void getNextFirst(){  // OK
         int max=0;
         try {
             String w=in.readLine();

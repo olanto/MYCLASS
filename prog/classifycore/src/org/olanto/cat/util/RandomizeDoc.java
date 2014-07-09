@@ -12,7 +12,6 @@ package org.olanto.cat.util;
 
 import org.olanto.idxvli.IdxStructure;
 import java.util.*;
-import org.olanto.cat.NNBottomGroup;
 
 public class RandomizeDoc extends Object {
     

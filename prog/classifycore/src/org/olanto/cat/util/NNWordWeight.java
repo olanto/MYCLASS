@@ -1,13 +1,8 @@
-package isi.jg.cat;
+package org.olanto.cat.util;
 
 
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.lang.reflect.*;
-import isi.jg.idxvli.*;
-import isi.jg.util.Timer;
+import org.olanto.idxvli.IdxStructure;
 
 /** classe pour stocker la pondération du réseau pour une classe et pour un document
   * <p>author: Jacques Guyot
@@ -25,7 +20,7 @@ public class NNWordWeight{
     float[] weightOfWord;
     int lastused,doc,group;
     
-    NNWordWeight(int maxlength,int _doc, int _group){
+    public NNWordWeight(int maxlength,int _doc, int _group){
         wordOfDoc= new int[maxlength];
         weightOfWord=new float[maxlength];
         lastused=0;
@@ -33,13 +28,13 @@ public class NNWordWeight{
         group=_group;
     }
     
-    void add(int word, float weight){
+    public void add(int word, float weight){
         wordOfDoc[lastused]=word;
         weightOfWord[lastused]=weight;
         lastused++;
     }
     
-    void displayXML(IdxStructure glue, int maxkw){
+    public void displayXML(IdxStructure glue, int maxkw){
         maxkw=Math.min(lastused,maxkw);
         for(int j=0;j<maxkw;j++){
             float maxw=weightOfWord[j];
@@ -59,7 +54,7 @@ public class NNWordWeight{
         }
     }
     
-    void displayTXT(IdxStructure glue, int maxkw){
+    public void displayTXT(IdxStructure glue, int maxkw){
         maxkw=Math.min(lastused,maxkw);
         for(int j=0;j<maxkw;j++){
             float maxw=weightOfWord[j];
@@ -78,7 +73,7 @@ public class NNWordWeight{
         }
     }
     
-    void displayTXTDetail(IdxStructure glue, int maxkw){
+    public void displayTXTDetail(IdxStructure glue, int maxkw){
         maxkw=Math.min(lastused,maxkw);
         for(int j=0;j<maxkw;j++){
             float maxw=weightOfWord[j];
@@ -100,7 +95,7 @@ public class NNWordWeight{
         }
     }
     
-    void display(IdxStructure glue){
+    public void display(IdxStructure glue){
         for(int i=0;i<lastused;i++){
             System.out.println(doc+","+group+","+glue.getStringforW(wordOfDoc[i])+","+((int)weightOfWord[i]));
         }
