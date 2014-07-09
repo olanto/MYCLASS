@@ -3,6 +3,7 @@ data/*
 sample/*
 dist/*
 corpus/*
+private/*
 template/data_empty/*
 TEMP/*
 SAVE/*
