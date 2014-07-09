@@ -1,8 +1,8 @@
 package simple.jg.test.eob2012;
 
 import org.olanto.idxvli.IdxStructure;
-import org.olanto.cat.NNOneNMultiFiles;
-import org.olanto.cat.ExperimentMultiFiles;
+import org.olanto.cat.otherexp.NNOneNMultiFiles;
+import org.olanto.cat.otherexp.ExperimentMultiFiles;
 import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.util.Timer;
 import java.util.List;

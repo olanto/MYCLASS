@@ -1,9 +1,9 @@
 package isi.jg.deploy.demo.alpha;
 
 import org.olanto.idxvli.IdxStructure;
-import org.olanto.cat.Experimentshort;
+import org.olanto.cat.otherexp.Experimentshort;
 import org.olanto.cat.util.NNBottomGroup;
-import org.olanto.cat.NNOneNshort;
+import org.olanto.cat.otherexp.NNOneNshort;
 import org.olanto.util.Timer;
 import static org.olanto.cat.GetProp.*;
 

@@ -1,9 +1,9 @@
 package isi.jg.cat.clefip2010;
 
 import org.olanto.idxvli.IdxStructure;
-import org.olanto.cat.NNOneN_OverSampling;
+import org.olanto.cat.oversampling.NNOneN_OverSampling;
 import org.olanto.cat.NNBuildTree;
-import org.olanto.cat.NNBuildTreeOver;
+import org.olanto.cat.oversampling.NNBuildTreeOver;
 import org.olanto.cat.util.NNBottomGroup;
 import isi.jg.deploy.frende.*;
 import static org.olanto.cat.GetProp.*;
