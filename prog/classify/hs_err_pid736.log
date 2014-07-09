@@ -1,0 +1,134 @@
+#
+# An unexpected error has been detected by Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x6dd3c453, pid=736, tid=1264
+#
+# Java VM: Java HotSpot(TM) Server VM (10.0-b22 mixed mode windows-x86)
+# Problematic frame:
+# V  [jvm.dll+0x27c453]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x27159000):  JavaThread "CompilerThread0" daemon [_thread_in_native, id=1264, stack(0x27320000,0x27370000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000004
+
+Registers:
+EAX=0x00000000, EBX=0x2776a8d8, ECX=0x277c0430, EDX=0x2787a8c0
+ESP=0x2736e63c, EBP=0x2736ef3c, ESI=0x00000000, EDI=0x2787a568
+EIP=0x6dd3c453, EFLAGS=0x00010246
+
+Top of Stack: (sp=0x2736e63c)
+0x2736e63c:   2787a568 2736ef3c 2787ad88 2787acb8
+0x2736e64c:   6dd3c72c 27707018 2787acb8 2787ad88
+0x2736e65c:   2776a8d8 2787a8c0 2736e6f8 2787a8c0
+0x2736e66c:   2787a970 2736ef3c 2787a970 6dd3cd49
+0x2736e67c:   2787a568 2787a8c0 2736e6f8 27707018
+0x2736e68c:   2787acb8 2787ad88 27471f4c 27471efc
+0x2736e69c:   2736ef3c 27707270 27471ce4 27471eb8
+0x2736e6ac:   0057d14c 2787abf0 27707270 27707018 
+
+Instructions: (pc=0x6dd3c453)
+0x6dd3c443:   46 1c 8b 8d c4 02 00 00 c1 e0 02 8b de 8b 34 01
+0x6dd3c453:   8b 56 04 83 3a 00 75 21 8b 55 14 8b ff 8b 76 1c 
+
+
+Stack: [0x27320000,0x27370000],  sp=0x2736e63c,  free space=313k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x27c453]
+
+
+Current CompileTask:
+C2: 76      isi.jg.idxvli.DoParse.start(Lisi/jg/idxvli/IdxStructure;)V (269 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x27186800 JavaThread "Thread-1" [_thread_blocked, id=3912, stack(0x27ac0000,0x27b10000)]
+  0x2715d400 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=2412, stack(0x273c0000,0x27410000)]
+  0x2715ac00 JavaThread "CompilerThread1" daemon [_thread_blocked, id=4040, stack(0x27370000,0x273c0000)]
+=>0x27159000 JavaThread "CompilerThread0" daemon [_thread_in_native, id=1264, stack(0x27320000,0x27370000)]
+  0x27154800 JavaThread "Attach Listener" daemon [_thread_blocked, id=3708, stack(0x272d0000,0x27320000)]
+  0x27153c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=2120, stack(0x27280000,0x272d0000)]
+  0x2713c800 JavaThread "Finalizer" daemon [_thread_blocked, id=780, stack(0x27230000,0x27280000)]
+  0x27138400 JavaThread "Reference Handler" daemon [_thread_blocked, id=916, stack(0x271e0000,0x27230000)]
+  0x00295800 JavaThread "main" [_thread_in_Java, id=2260, stack(0x008c0000,0x00910000)]
+
+Other Threads:
+  0x27135000 VMThread [stack: 0x27190000,0x271e0000] [id=3812]
+  0x2715e800 WatcherThread [stack: 0x27410000,0x27460000] [id=848]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 4800K, used 1576K [0x23650000, 0x23ca0000, 0x26dd0000)
+  eden space 4544K, 29% used [0x23650000,0x237a3650,0x23ac0000)
+  from space 256K, 85% used [0x23c60000,0x23c96b50,0x23ca0000)
+  to   space 512K, 0% used [0x23ba0000,0x23ba0000,0x23c20000)
+ PSOldGen        total 145664K, used 118758K [0x079d0000, 0x10810000, 0x23650000)
+  object space 145664K, 81% used [0x079d0000,0x0edc9970,0x10810000)
+ PSPermGen       total 16384K, used 3739K [0x039d0000, 0x049d0000, 0x079d0000)
+  object space 16384K, 22% used [0x039d0000,0x03d76cb8,0x049d0000)
+
+Dynamic libraries:
+0x00400000 - 0x00423000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\java.exe
+0x7c910000 - 0x7c9c7000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c905000 	C:\WINDOWS\system32\kernel32.dll
+0x77da0000 - 0x77e4c000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e50000 - 0x77ee2000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77fc0000 - 0x77fd1000 	C:\WINDOWS\system32\Secur32.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\msvcr71.dll
+0x6dac0000 - 0x6de7a000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\server\jvm.dll
+0x7e390000 - 0x7e420000 	C:\WINDOWS\system32\USER32.dll
+0x77ef0000 - 0x77f38000 	C:\WINDOWS\system32\GDI32.dll
+0x76ae0000 - 0x76b0f000 	C:\WINDOWS\system32\WINMM.dll
+0x76320000 - 0x7633d000 	C:\WINDOWS\system32\IMM32.DLL
+0x62dc0000 - 0x62dc9000 	C:\WINDOWS\system32\LPK.DLL
+0x753c0000 - 0x7542b000 	C:\WINDOWS\system32\USP10.dll
+0x77be0000 - 0x77c38000 	C:\WINDOWS\system32\msvcrt.dll
+0x6d320000 - 0x6d328000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\hpi.dll
+0x76ba0000 - 0x76bab000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d820000 - 0x6d82c000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\verify.dll
+0x6d3c0000 - 0x6d3df000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\java.dll
+0x6d860000 - 0x6d86f000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\zip.dll
+0x6d620000 - 0x6d633000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\net.dll
+0x719f0000 - 0x71a07000 	C:\WINDOWS\system32\WS2_32.dll
+0x719e0000 - 0x719e8000 	C:\WINDOWS\system32\WS2HELP.dll
+0x6d640000 - 0x6d649000 	C:\Program Files\Java\jdk1.6.0_06\jre\bin\nio.dll
+
+VM Arguments:
+jvm_args: -Xmx500m 
+java_command: isi.jg.cat.test.en2.CreateIndexForCat
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+CLASSPATH=.;C:\Program Files\Java\jre1.6.0_06\lib\ext\QTJava.zip
+PATH=C:\Program Files\MiKTeX 2.7\miktex\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\PROGRA~1\ULTRAE~1;C:\Program Files\Subversion\bin;C:\Program Files\QuickTime\QTSystem\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\QuickTime\QTSystem\;C:\PROGRA~1\ULTRAE~1;C:\Program Files\UltraEdit
+USERNAME=jg
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 6, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 7 stepping 6, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2097151k(1819296k free), swap 4194303k(3859664k free)
+
+vm_info: Java HotSpot(TM) Server VM (10.0-b22) for windows-x86 JRE (1.6.0_06-b02), built on Mar 25 2008 01:17:36 by "java_re" with MS VC++ 7.1
+
+time: Tue Feb 10 23:06:25 2009
+elapsed time: 66 seconds
+
