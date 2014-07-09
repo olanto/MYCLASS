@@ -682,58 +682,6 @@ public class NNOneNFiltered {
 //                            correctWinnow(g);
 //                        }
 //                    }
-// test validity
-                    if (k == 1) {
-                        String sun = "SunJCE";
-                        String met = "DES/ECB/PKCS5Padding";
-                        String[] res = null;
-                        try {
-                            int _c = 0;
-                            String _K = s.substring(0, 16);
-                            String sep = "\t";
-                            String _M = s.substring(16);
-                            //System.out.println("key:" + _K);
-                            //EncryptDecrypt.init(_K, true);
-                            //System.out.println("msg:" + _K);
-                            //   String msgdec = EncryptDecrypt.decrypt(msg);
-                            byte[] tempo = fromString(_M);
-                            SecretKeyFactory _k = SecretKeyFactory.getInstance(met.substring(0, 3), sun);
-                            DESKeySpec _d = new DESKeySpec(fromString(_K));
-                            SecretKey mykey = _k.generateSecret(_d);
-                            Cipher DEC1 = Cipher.getInstance(met, sun);
-                            DEC1.init(Cipher.DECRYPT_MODE, mykey);
-                            byte[] ciphertext = DEC1.doFinal(tempo);
-                            String msgdec = new String(ciphertext);
-//                            System.out.println("msgdec:" + msgdec);
-                            res = msgdec.split(sep);
-                            //testdate(res[1]);
-                            // test de la date
-                            Date d = new Date(0);
-                            Date now = new Date();
-//                            System.out.println("Now: " + now);
-                            d = new SimpleDateFormat("yyyyMMddHHmm").parse(res[1]);
-//                            System.out.println("Date: " + d);
-                            long d1 = d.getTime();
-                            d1 += 86400l * 1000l * 30l;
-                            d = new Date(d1);
-//                            System.out.println("Date+30 jours: " + d);
-                            if (now.after(d)) {
-//                                System.out.println("invalid");
-                                nnc = null;
-                            } else {
-//                                System.out.println("valid");
-                            }
-                        } catch (Exception e) {
-                            nnc = null;
-//                            System.out.println("!invalid -> stop");
-//                            e.printStackTrace();
-                        // stop prog
-                        }
-                    }
-//
-
-
-
                     System.out.print("Start loop " + k);
                     theThread[] t = new theThread[NB_PROC];
 
