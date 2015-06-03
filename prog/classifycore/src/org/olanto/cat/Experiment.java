@@ -152,8 +152,10 @@ public class Experiment extends Object {
         }
         if (multitest) {
             NNOneN.testWinnow4Multi(multitestGroupdetail, Nfirst);
-            NNOneN.testWinnowPR(multitestGroupdetail, Nfirst);
-            NNOneN.testWinnowPR_Random(multitestGroupdetail, Nfirst);
+           if (multitestDocumentdetail) {
+               NNOneN.testWinnowPR(multitestGroupdetail, Nfirst);
+               NNOneN.testWinnowPR_Random(multitestGroupdetail, Nfirst);
+           }
         }
 
     }

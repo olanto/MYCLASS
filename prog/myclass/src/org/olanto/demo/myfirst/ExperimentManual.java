@@ -1,11 +1,11 @@
 package org.olanto.demo.myfirst;
 
-import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.Experiment;
-import org.olanto.cat.util.NNBottomGroup;
-import org.olanto.cat.NNOneN;
-import org.olanto.util.Timer;
 import static org.olanto.cat.GetProp.*;
+import org.olanto.cat.NNOneN;
+import org.olanto.cat.util.NNBottomGroup;
+import org.olanto.idxvli.IdxStructure;
+import org.olanto.util.Timer;
 
 /**
  * *
@@ -50,7 +50,7 @@ public class ExperimentManual {
                 "C:/SIMPLE_CLASS/experiment/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //            boolean inmemory,
-                7,//            int categorylevel,
+                4,//            int categorylevel,
                 // TRAIN
                 "", //            String prefix,
                 5, //            int repeatK,
@@ -70,10 +70,9 @@ public class ExperimentManual {
                 true,//            boolean maintestDocumentdetail,
                 true,//            boolean multitest,
                 true,//           boolean multitestGroupdetail ,
-                false //            boolean multitestDocumentdetail (not implemented)
+                false //           boolean multitestOtherdetail 
                 );
         x.doIt();
         t1.stop();
-        id.close();
-    }
+     }
 }

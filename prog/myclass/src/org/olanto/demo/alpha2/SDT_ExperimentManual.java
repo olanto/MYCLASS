@@ -49,9 +49,9 @@ public class SDT_ExperimentManual {
         Experiment x = new Experiment(
                 "alphaMan",        //            String experimentName,
                 "C:/SIMPLE_CLASS/experiment/",    //            String pathfileSave,
-                2,              //            int nbproc,
+                8,              //            int nbproc,
                 true,           //            boolean inmemory,
-                1,//            int categorylevel,
+                4,//            int categorylevel,
                                    // TRAIN
                 "",             //            String prefix,
                 10,              //            int repeatK,

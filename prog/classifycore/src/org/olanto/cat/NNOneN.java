@@ -1,23 +1,24 @@
-/**********
-    Copyright © 2003-2014 Olanto Foundation Geneva
-
-   This file is part of myCLASS.
-
-   myLCASS is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of
-    the License, or (at your option) any later version.
-
-    myCAT is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with myCAT.  If not, see <http://www.gnu.org/licenses/>.
-
-**********/
-
+/**
+ * ********
+ * Copyright © 2003-2014 Olanto Foundation Geneva
+ *
+ * This file is part of myCLASS.
+ *
+ * myLCASS is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * myCAT is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with myCAT. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *********
+ */
 package org.olanto.cat;
 
 import org.olanto.cat.util.NNLocalGroup;
@@ -44,9 +45,10 @@ import javax.crypto.spec.DESKeySpec;
 import org.olanto.cat.mnn.Categorizer;
 import org.olanto.util.Timer;
 
-/** classe pour générer un réseau de neurone par apprentissage et pour le tester.
-  * <b>principe de fonctionnement</b>
- * basé sur l'apprentissage et sur les réseaux de neurones (WINNOW)
+/**
+ * classe pour générer un réseau de neurone par apprentissage et pour le tester.
+ * <b>principe de fonctionnement</b> basé sur l'apprentissage et sur les réseaux
+ * de neurones (WINNOW)
  *
  */
 public class NNOneN {
@@ -127,75 +129,98 @@ public class NNOneN {
         }
     }
     private static final String detailFolderName = "detail";
-    /** signature
+    /**
+     * signature
      */
     private static String s = null;
-    /** niveau 1 de catégorisation
+    /**
+     * niveau 1 de catégorisation
      */
     private static int NB_PROC = 6;
-    /** niveau 1 de catégorisation
+    /**
+     * niveau 1 de catégorisation
      */
     public static final int CAT_SECTION = 1;
-    /** niveau 2 de catégorisation
+    /**
+     * niveau 2 de catégorisation
      */
     public static final int CAT_CLASS = 3;
-    /** niveau 3 de catégorisation
+    /**
+     * niveau 3 de catégorisation
      */
     public static final int CAT_SUBCLASS = 4;
-    /** niveau 4 de catégorisation
+    /**
+     * niveau 4 de catégorisation
      */
     public static final int CAT_MAINGROUP = 7;   // 7 or 8
-    /** niveau 4 de catégorisation
+    /**
+     * niveau 4 de catégorisation
      */
     public static final int CAT_GROUP = 14;
-    /** pondération unitaire des termes
+    /**
+     * pondération unitaire des termes
      */
     public static final int SDF_ONE = 0;
-    /** pondération racine carrée de la fréquence du terme dans le document
+    /**
+     * pondération racine carrée de la fréquence du terme dans le document
      */
     public static final int SDF_SQUARE = 1;
-    /** pondération fréquence du terme dans le document
+    /**
+     * pondération fréquence du terme dans le document
      */
     public static final int SDF_N = 2;
-    /** pondération log de la fréquence du terme dans le document
+    /**
+     * pondération log de la fréquence du terme dans le document
      */
     public static final int SDF_LN = 3;
-    /** pondération puissance de la fréquence du terme dans le document
+    /**
+     * pondération puissance de la fréquence du terme dans le document
      */
     public static final int SDF_POWER = 4;
-    /** puissance associée ? SDF_POWER */
+    /**
+     * puissance associée ? SDF_POWER
+     */
     private static double POWER = 0.5;
-    /** initialisation forcée */
+    /**
+     * initialisation forcée
+     */
     private static int FORCE_INIT = 0;
     private static int method = 0; // method for sdf
     static float[] sdf = new float[DocBag.MAXOCCINDOC];  // weighting of feature
 
     /* learn on multi-class */
-    /** apprentissage uniquement sur la catégorie principale du document
+    /**
+     * apprentissage uniquement sur la catégorie principale du document
      */
     public static final boolean LEARNMULTIGROUP = true;
-    /** apprentissage sur les catégories secondaires du document
+    /**
+     * apprentissage sur les catégories secondaires du document
      */
     public static final boolean LEARNMONOGROUP = false;
     static boolean learntype = true;
     /* normalised feature weigthing*/
-    /** normalisation des pondérations
+    /**
+     * normalisation des pondérations
      */
     public static final boolean NORMALISED = true;
-    /** pas de normalisation des pondérations
+    /**
+     * pas de normalisation des pondérations
      */
     public static final boolean UNNORMALISED = false;
     static boolean normalisedFeature = true;
     /* flag for system */
-    /** mode montrant les résultats intermédiares de l'apprentissage
+    /**
+     * mode montrant les résultats intermédiares de l'apprentissage
      */
     private static boolean VERBOSE = false; /* show training result ... */
 
-    /** chargement des documents en mémoire (pour accélére l'apprentissage)
+    /**
+     * chargement des documents en mémoire (pour accélére l'apprentissage)
      */
     private static boolean INMEMORY = true; /* keep DocBag in memory alway for Fast */
 
-    /** montrer les détails des tests
+    /**
+     * montrer les détails des tests
      */
     private static final int nfirst = 3;  // test on ...
 
@@ -204,7 +229,9 @@ public class NNOneN {
     //static IdxIndexer Indexer; // global variable
     private static final byte MINBYTE = -127;  // limit for compact implementation
     private static final byte MAXBYTE = +127;
-    /** seuil minimum pour le minimum d'occurence d'un terme dans le corpus selectionné
+    /**
+     * seuil minimum pour le minimum d'occurence d'un terme dans le corpus
+     * selectionné
      */
     public static int GLOBALMINOCC = 2; // inferior limit for minocc
     private static int maxtrain = 0;  // define 0..maxtrain -> the set of training documents
@@ -261,7 +288,7 @@ public class NNOneN {
         lastword = glue.lastRecordedWord;
         normalisedFeature = _normalised;
         method = _method;
-            System.out.println("in memory :"+INMEMORY);
+        System.out.println("in memory :" + INMEMORY);
         if (INMEMORY) {
             System.out.println("in memory load docbag ...");
             alldocbag = new int[lastdoc][];
@@ -535,7 +562,7 @@ public class NNOneN {
         maxused = 0;
         wordAtIdx = new int[lastword];
         for (int j = 0; j < lastword; j++) {// translate
- //           System.out.println("wordOcctrain:"+j+", "+wordOcctrain[j]); 
+            //           System.out.println("wordOcctrain:"+j+", "+wordOcctrain[j]); 
             if (wordOcctrain[j] >= GLOBALMINOCC) {
                 wordAtIdx[j] = maxused;
                 maxused++;
@@ -579,22 +606,31 @@ public class NNOneN {
 
     }
 
-    /** apprentissage du réseau de neurone.
-     * Le réseau est spécifié par son niveau de classification et par un éventuel sous ensemble ? classifier.
+    /**
+     * apprentissage du réseau de neurone. Le réseau est spécifié par son niveau
+     * de classification et par un éventuel sous ensemble ? classifier.
+     *
      * @param _categorylevel niveau de classification.
      * @param _prefix sous ensemble ? classifier.
      * @param repeatK facteur de répétition de l'apprentissage (4, par exemple)
      * @param _qlevel valeur d'initialisation des neurones (1000, par exemple).
      * @param _add facteur de promotion (1.06 par exemple).
-     * @param _minocc nombre minimum d'occurences du terme dans le corpus pour ?tre sélectionné (3, par exemple).
-     * @param _maxocc nombre maximum d'occurences du terme dans le corpus pour ?tre sélectionné (1000, par exemple).
-     * @param _deltamin fronti?re épaisse (en dessous du seuil) (300, par exemple).
-     * @param _deltamax fronti?re épaisse (en dessus du seuil) (300, par exemple).
-     * @param verbosetrain montre les détails du groupe et de la répartition des documents de test et d'apprentissage.
+     * @param _minocc nombre minimum d'occurences du terme dans le corpus pour
+     * ?tre sélectionné (3, par exemple).
+     * @param _maxocc nombre maximum d'occurences du terme dans le corpus pour
+     * ?tre sélectionné (1000, par exemple).
+     * @param _deltamin fronti?re épaisse (en dessous du seuil) (300, par
+     * exemple).
+     * @param _deltamax fronti?re épaisse (en dessus du seuil) (300, par
+     * exemple).
+     * @param verbosetrain montre les détails du groupe et de la répartition des
+     * documents de test et d'apprentissage.
      * @param testtrain effectuer le test avec les documents d'apprentissage
-     * @param trainpart pourcentage pris pour l'apprentissage, le reste est pour le test
+     * @param trainpart pourcentage pris pour l'apprentissage, le reste est pour
+     * le test
      *
-     * NORMALISED et SDF_SQUARE donne les meilleurs résultats (dans les corpus testés)
+     * NORMALISED et SDF_SQUARE donne les meilleurs résultats (dans les corpus
+     * testés)
      */
     public static void TrainWinnow(int _categorylevel, String _prefix, int repeatK, float _qlevel, float _add, int _minocc, int _maxocc,
             float _deltamin, float _deltamax, boolean verbosetrain,
@@ -758,7 +794,9 @@ public class NNOneN {
         return res;
     }
 
-    /** afficher la matrice de confusion
+    /**
+     * afficher la matrice de confusion
+     *
      * @param detail donne les détails pour chaque document
      */
     public static void ConfusionMatrix(boolean detail) {
@@ -821,7 +859,10 @@ public class NNOneN {
         t1.stop();
     }
 
-    /** permet de calculer la répartition des prédictions en fonction de la valeur de prédiction
+    /**
+     * permet de calculer la répartition des prédictions en fonction de la
+     * valeur de prédiction
+     *
      * @param maxscore score maximum des calculs
      */
     public static void confidenceLevel(int maxscore) {
@@ -923,7 +964,9 @@ public class NNOneN {
         return res[0];
     }
 
-    /** cherche la catégorie principale pour un document
+    /**
+     * cherche la catégorie principale pour un document
+     *
      * @param d numéro du document
      * @return nom de la catégorie principale
      */
@@ -933,7 +976,9 @@ public class NNOneN {
         return ActiveGroup.getgroupName(res[0]);
     }
 
-    /** cherche la catégorie principale d'un ensemble de termes
+    /**
+     * cherche la catégorie principale d'un ensemble de termes
+     *
      * @param db ensembles de termes
      * @return nom de la catégorie principale
      */
@@ -943,7 +988,9 @@ public class NNOneN {
         return ActiveGroup.getgroupName(res[0]);
     }
 
-    /** cherche n premi?res catégories d'un ensemble de termes
+    /**
+     * cherche n premi?res catégories d'un ensemble de termes
+     *
      * @param db ensembles de termes
      * @param nfirst nombre de catégories ? ramener
      * @return liste des catégories
@@ -958,7 +1005,9 @@ public class NNOneN {
         return s;
     }
 
-    /** cherche n premi?res catégories d'un texte
+    /**
+     * cherche n premi?res catégories d'un texte
+     *
      * @param request texte
      * @param nfirst nombre de catégories ? ramener
      * @return liste des catégories
@@ -989,7 +1038,9 @@ public class NNOneN {
         return res;
     }
 
-    /** test pour la catégorie principale
+    /**
+     * test pour la catégorie principale
+     *
      * @param detailclass montre les détails par catégorie
      * @param detaildocument montre les détail par classe
      * @param n nombre de prédictions
@@ -1013,7 +1064,7 @@ public class NNOneN {
                 System.out.println("Warning *** detail need pathName (and a folder named detail) and experimentName");
             }
         }
-       if (detaildocument) { //ouvre le fichier
+        if (detaildocument) { //ouvre le fichier
             if (collectResult != null) {
                 String filename = collectResult.pathfileSave + detailFolderName + collectResult.experimentName + "-ResultDetail-Doc.csv";
                 try {
@@ -1065,7 +1116,7 @@ public class NNOneN {
                             int[] docbag = glue.getBagOfDoc(d);
                             detaildoc.write(";" + docbag.length);
                             detaildoc.write("\n");
-                           resultdoc.write("\n");
+                            resultdoc.write("\n");
                         } catch (Exception e) {
                             System.err.println("error in save detail ...");
                         }
@@ -1243,9 +1294,12 @@ public class NNOneN {
 
     }
 
-    /** test pour les catégories secondaires
+    /**
+     * test pour les catégories secondaires
+     *
      * @param detailclass montre les détails par catégorie
-     * @param n  nombre de prédiction */
+     * @param n nombre de prédiction
+     */
     public static void testWinnow4Multi(boolean detailclass, int n) {
         // init
         //Timer t1=new Timer("TrainWinnow");
@@ -1343,9 +1397,12 @@ public class NNOneN {
         //t1.stop();
     }
 
-    /** test pour les catégories secondaires
+    /**
+     * test pour les catégories secondaires
+     *
      * @param detailclass montre les détails par catégorie
-     * @param n  nombre de prédiction */
+     * @param n nombre de prédiction
+     */
     public static void testWinnowPR(boolean detailclass, int n) {
         // init
         //Timer t1=new Timer("TrainWinnow");
@@ -1393,10 +1450,10 @@ public class NNOneN {
 
         long precision = 0;
         long recall = 0;
-        long totok=0;
-        
+        long totok = 0;
+
         for (int k = 0; k < n; k++) {
-            totok+=(long)  totingroup[k] * 10000l;
+            totok += (long) totingroup[k] * 10000l;
             precision = totok / ((k + 1) * totdoc);
             recall = totok / (totsymbol);
             System.out.println("Manyclass " + (k + 1) + "-guess: " + precision + "," + recall);
@@ -1431,9 +1488,14 @@ public class NNOneN {
 
         //t1.stop();
     }
-    /** test pour les catégories secondaires avec tirage au sort de la réponse dans le training
+
+    /**
+     * test pour les catégories secondaires avec tirage au sort de la réponse
+     * dans le training
+     *
      * @param detailclass montre les détails par catégorie
-     * @param n  nombre de prédiction */
+     * @param n nombre de prédiction
+     */
     public static void testWinnowPR_Random(boolean detailclass, int n) {
         // init
         //Timer t1=new Timer("TrainWinnow");
@@ -1445,9 +1507,9 @@ public class NNOneN {
         int[][] inclass = new int[maxgroup][n];
         beg = lasttesttraindoc;
         end = lasttestdoc;
-        Random gen=new Random(113);  // THE TEST
-        int randref=0;
-        for (int id = beg; id < end; id++) {           
+        Random gen = new Random(113);  // THE TEST
+        int randref = 0;
+        for (int id = beg; id < end; id++) {
             int d = RandomizeDoc.rand[id];
             if (testDocOK2(d)) {
                 totdoc++;
@@ -1456,9 +1518,9 @@ public class NNOneN {
                     //System.out.println(totdoc + ": " + g[i]);
                     totclass[g[i]]++;
                 }
-                randref= RandomizeDoc.rand[gen.nextInt(beg)];  //simule une reférence
+                randref = RandomizeDoc.rand[gen.nextInt(beg)];  //simule une reférence
                 int[] top = topGroupN(randref);
-                for (int k = 0; k < Math.min(n,top.length); k++) {
+                for (int k = 0; k < Math.min(n, top.length); k++) {
                     for (int i = 0; i < g.length; i++) {
                         if (g[i] == top[k]) {
                             totingroup[k]++;      // ajoute au ok de la position du guess
@@ -1478,15 +1540,15 @@ public class NNOneN {
             totsymbol += totclass[i];
         }
         System.out.println();
-       System.out.println("tot tested doc " + totdoc + ", tot symbols: " + totsymbol);
+        System.out.println("tot tested doc " + totdoc + ", tot symbols: " + totsymbol);
 
 
         long precision = 0;
         long recall = 0;
-        long totok=0;
-        
+        long totok = 0;
+
         for (int k = 0; k < n; k++) {
-            totok+=(long)  totingroup[k] * 10000l;
+            totok += (long) totingroup[k] * 10000l;
             precision = totok / ((k + 1) * totdoc);
             recall = totok / (totsymbol);
             System.out.println("Manyclass random baseline " + (k + 1) + "-guess: " + precision + "," + recall);
@@ -1532,11 +1594,14 @@ public class NNOneN {
         System.out.println();
     }
 
-    /** test pour l'arbre de réseaux
+    /**
+     * test pour l'arbre de réseaux
+     *
      * @param testtrain le jeu d'apprentissage est utilisé pour lengthtest
      * @param MM arbre de réseau
      * @param mode mode de test dans l'arbre
-     * @param classLevel  niveau de classification */
+     * @param classLevel niveau de classification
+     */
     public static void testWinnowTree(boolean testtrain, Categorizer MM, int mode, int classLevel) {
         RandomizeDoc.init(glue, BootGroup, ""); // reset all preceding computation, get all doc
 
@@ -1547,24 +1612,6 @@ public class NNOneN {
         ActiveGroup = new NNLocalGroup(BootGroup, glue, classLevel, false);
 
         int totingroup = 0, totgoodgroup = 0, totbadgroup = 0, totnoclassgroup = 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         int beg, end;
         if (testtrain) {
             beg = maxtrain;
@@ -1624,7 +1671,9 @@ public class NNOneN {
         System.out.println(qlevel + "," + add + "," + minocc + "," + deltamin + "," + deltamax + "," + recall + "," + precision + "," + error + "," + falout);
     }
 
-    /** génération XML de mots clé pour les document
+    /**
+     * génération XML de mots clé pour les document
+     *
      * @param verbosemode montre les détails
      * @param nKW nombre de mots clé
      */
@@ -1676,10 +1725,12 @@ public class NNOneN {
         return res;
     }
 
-    /** génération de mots clé pour les groupes
+    /**
+     * génération de mots clé pour les groupes
+     *
      * @param nKW nombre de mots clé
      */
-    public static void explainGroup(int nKW) {
+    public static void explainGroup(int nKW, boolean savepos) {
 
         // calcul la répartition des groupes
         int[] inclass = new int[maxgroup];
@@ -1700,12 +1751,13 @@ public class NNOneN {
             System.out.println();
 
         }
-        for (int i = 0; i < maxgroup; i++) {
-            System.out.println("---- " + i + " " + ActiveGroup.getgroupName(i) + ", nbdoc:" + inclass[i]);
-            ww = computeWinnowWeight(i);
-            ww.displayTXTDetail(glue, nKW);
-            System.out.println();
-
+        if (savepos) {
+            for (int i = 0; i < maxgroup; i++) {
+                System.out.println("---- " + i + " " + ActiveGroup.getgroupName(i) + ", nbdoc:" + inclass[i]);
+                ww = computeWinnowWeight(i);
+                ww.displayTXTDetail(glue, nKW);
+                System.out.println();
+            }
         }
     }
 
@@ -1734,9 +1786,12 @@ public class NNOneN {
         return res;
     }
 
-    /** test (pour le training) pour les catégories secondaires
+    /**
+     * test (pour le training) pour les catégories secondaires
+     *
      * @param detailclass montre les détails par catégorie
-     * @param n  nombre de prédiction */
+     * @param n nombre de prédiction
+     */
     public static void autoTestWinnow4Multi(boolean detailclass, int n) {
         // init
         //Timer t1=new Timer("TrainWinnow");

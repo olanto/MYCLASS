@@ -39,7 +39,8 @@ public class POS_ConfigurationForCat implements IdxInit{
        /** nbre d'object storage actif = 2^OBJ_PW2 */
         OBJ_PW2=0;  ///0=>1,1=>2,2=>4,3=>8,4=>16
         OBJ_NB=(int)Math.pow(2,OBJ_PW2);  ///0=>1,1=>2,2=>4,
-       
+        OBJ_STORE_ASYNC = false;
+ 
         //PASS_MODE=PassMode.ONE;
         
         IDX_DONTINDEXTHIS=SomeConstant.ROOTDIR+"SIMPLE/config/dontindexthiswords.txt";

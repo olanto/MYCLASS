@@ -49,9 +49,9 @@ public class ExperimentManual {
         Experiment x = new Experiment(
                 "alphaMan",        //            String experimentName,
                 "C:/SIMPLE_CLASS/experiment/",    //            String pathfileSave,
-                2,              //            int nbproc,
+                8,              //            int nbproc,
                 true,           //            boolean inmemory,
-                3,//            int categorylevel,
+                7,//            int categorylevel,
                                    // TRAIN
                 "",             //            String prefix,
                 5,              //            int repeatK,
@@ -75,5 +75,6 @@ public class ExperimentManual {
                 );
 x.doIt();
         t1.stop();
+         NNOneN.explainGroup(20,false);
     }
 }
