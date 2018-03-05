@@ -1,5 +1,5 @@
 /**********
-    Copyright © 2003-2014 Olanto Foundation Geneva
+    Copyright © 2003-2018 Olanto Foundation Geneva
 
    This file is part of myCLASS.
 

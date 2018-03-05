@@ -1,6 +1,6 @@
 /**
  * ********
- * Copyright © 2003-2014 Olanto Foundation Geneva
+ * Copyright © 2003-2018 Olanto Foundation Geneva
  *
  * This file is part of myCLASS.
  *
@@ -21,8 +21,17 @@
  */
 package org.olanto.cat;
 
-import org.olanto.cat.util.NNLocalGroup;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.olanto.cat.mnn.Categorizer;
 import org.olanto.cat.util.NNBottomGroup;
+import org.olanto.cat.util.NNLocalGroup;
 import org.olanto.cat.util.NNWordWeight;
 import org.olanto.cat.util.RandomizeDoc;
 import org.olanto.idxvli.DoParse;
@@ -30,13 +39,6 @@ import static org.olanto.idxvli.IdxConstant.*;
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.idxvli.extra.DocBag;
 import org.olanto.idxvli.util.BytesAndFiles;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.olanto.cat.mnn.Categorizer;
 import org.olanto.util.Timer;
 
 /**
@@ -99,6 +101,7 @@ public class NNOneN {
             id = _id;
         }
 
+        @Override
         public void run() {
             int count = 0;
             cumul = new float[maxgroup]; // init structure
@@ -130,7 +133,7 @@ public class NNOneN {
     /**
      * niveau 1 de catégorisation
      */
-    private static int NB_PROC = 6;
+    private static int NB_PROC = 16;
     /**
      * niveau 1 de catégorisation
      */
@@ -146,7 +149,8 @@ public class NNOneN {
     /**
      * niveau 4 de catégorisation
      */
-    public static final int CAT_MAINGROUP = 7;   // 7 or 8
+    public static final int CAT_MAINGROUP7 = 7;   // 7 or 8
+    public static final int CAT_MAINGROUP = 8;   // 7 or 8
     /**
      * niveau 4 de catégorisation
      */
@@ -322,16 +326,16 @@ public class NNOneN {
         }
     }
 
-    static final void computeWinnow(float[] cumul, int d) {
+    static void computeWinnow(float[] cumul, int d) {
         computeWinnowPosCompact(cumul, d);
         normalisedFeature(cumul, d);
     }
 
-    static final void correctWinnow(float[] cumul, int[] group, int d) {
+    static void correctWinnow(float[] cumul, int[] group, int d) {
         correctWinnowPosCompact(cumul, group, d);
     }
 
-    static final void initWinnow() {
+    static void initWinnow() {
         worduse = new byte[maxused];
         for (int j = 0; j < lastword; j++) {
             int iiii = wordAtIdx[j];
@@ -355,7 +359,7 @@ public class NNOneN {
     }
 
     /* positive winnow and balanced implementation */
-    static final void computeWinnowPosCompact(float[] cumul, int d) {
+    static void computeWinnowPosCompact(float[] cumul, int d) {
 
         for (int i = 0; i < maxgroup; i++) {
             cumul[i] = 0;
@@ -380,7 +384,7 @@ public class NNOneN {
         }
     }
 
-    static final void computeWinnowPosCompactOnVector(float[] cumul, int[] docbag) {
+    static void computeWinnowPosCompactOnVector(float[] cumul, int[] docbag) {
         cumul = new float[maxgroup];
         // showVector(docbag);
         for (int i = 0; i < docbag.length; i++) {
@@ -403,7 +407,7 @@ public class NNOneN {
         //showVector(nnc[wordAtIdx[docbag[0]/DocBag.MAXOCCINDOC]]);
     }
 
-    static final void correctWinnowPosCompact(float[] cumul, int[] group, int d) {
+    static void correctWinnowPosCompact(float[] cumul, int[] group, int d) {
         int[] docbag = alldocbag[d];
         //showVector(cumul);
         for (int j = 0; j < maxgroup; j++) {
@@ -446,7 +450,7 @@ public class NNOneN {
 
     }
 
-    static final void normalisedFeature(float[] cumul, int d) {
+    static void normalisedFeature(float[] cumul, int d) {
         if (normalisedFeature) {
             int[] docbag = alldocbag[d];
             float normalised = 0;
@@ -521,6 +525,7 @@ public class NNOneN {
         long totdoc = 0;
         int[] doclength = new int[lastdoc];
         System.out.println("lastdoc:" + lastdoc);
+        System.out.println("lastword:" + lastword);
         wordusetrain = new byte[lastword];  // 8=used in train 4=used training 2=discard 1=TF is too low
 
         wordOcctrain = new int[lastword];  // occ in train Set
@@ -639,8 +644,7 @@ public class NNOneN {
 
         if (testtrain) { // on utilise une partie du train set pour les tests
 
-            lasttesttraindoc = (trainpart * RandomizeDoc.lasttraindoc) / 100;  // trainpart %
-
+            lasttesttraindoc = (int) (((long) trainpart * (long) RandomizeDoc.lasttraindoc) / (long) 100);  // trainpart %
             lasttestdoc = RandomizeDoc.lasttraindoc;
             maxtrain = lasttesttraindoc;
 
@@ -826,7 +830,10 @@ public class NNOneN {
                     totbadgroup++;
                     //System.out.println(g+";"+top);
                 }
-                multi[g][top]++;
+                //System.out.println("debug12345:"+g+";"+top);
+                if (top != -1) {
+                    multi[g][top]++;
+                }
             }
         }
 
@@ -1065,7 +1072,7 @@ public class NNOneN {
                     resultdoc = new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");
 //                    detaildoc.write("docname;main;choice1;level1;choice2;level2;choice3;level3;docbagsize\n");
                     System.out.println("result detail in: " + filename);
-                } catch (Exception e) {
+                } catch (FileNotFoundException | UnsupportedEncodingException e) {
                     System.err.print("error in save result detail ...");
                 }
             } else {
@@ -1365,18 +1372,18 @@ public class NNOneN {
             if (collectResult != null) {
                 String filename = collectResult.pathfileSave + detailFolderName + collectResult.experimentName + "-ManyDetail-Class.txt";
                 try {
-                    OutputStreamWriter detaildoc = new OutputStreamWriter(new FileOutputStream(filename), "UTF-8");
-                    System.out.println("detail in: " + filename);
-                    detaildoc.write("group,tottest,in1,in2,in3,...\n");
-                    for (int i = 0; i < maxgroup; i++) {
-                        detaildoc.write(ActiveGroup.getgroupName(i) + "," + totclass[i]);
-                        for (int k = 0; k < n; k++) {
-                            detaildoc.write("," + ((float) inclass[i][k] / (float) totclass[i]));
+                    try (OutputStreamWriter detaildoc = new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")) {
+                        System.out.println("detail in: " + filename);
+                        detaildoc.write("group,tottest,in1,in2,in3,...\n");
+                        for (int i = 0; i < maxgroup; i++) {
+                            detaildoc.write(ActiveGroup.getgroupName(i) + "," + totclass[i]);
+                            for (int k = 0; k < n; k++) {
+                                detaildoc.write("," + ((float) inclass[i][k] / (float) totclass[i]));
+                            }
+                            detaildoc.write("\n");
                         }
-                        detaildoc.write("\n");
+                        detaildoc.flush();
                     }
-                    detaildoc.flush();
-                    detaildoc.close();
                 } catch (Exception e) {
                     System.err.print("error in save detail ...");
                 }
@@ -1696,7 +1703,7 @@ public class NNOneN {
         }
     }
 
-    static final NNWordWeight computeWinnowWeight(int d, int g) {  // pour un document et un groupe
+    static NNWordWeight computeWinnowWeight(int d, int g) {  // pour un document et un groupe
 
         int[] docbag = alldocbag[d];
         NNWordWeight res = new NNWordWeight(docbag.length, d, g);
@@ -1717,6 +1724,30 @@ public class NNOneN {
         }
 
         return res;
+    }
+
+    public static void dumpNN() {
+        for (int j = 0; j < lastword; j++) {// compute freq
+            if (wordAtIdx[j] != NOT_FOUND) {
+                int freq = wordFreq[wordAtIdx[j]];
+                String word = glue.getStringforW(j);
+                float wig = 0;
+                System.out.print(word + "\t" + freq);
+                for (int g = 0; g < maxgroup; g++) {
+                    if (nnc[wordAtIdx[j]][g] < 0)// negative
+                    {
+                        wig = alfaNn[-nnc[wordAtIdx[j]][g]];
+                    } else // positive
+                    {
+                        wig = alfaPn[nnc[wordAtIdx[j]][g]];
+                    }
+                    System.out.print("\t" + wig);
+                }
+                System.out.println();
+
+            }
+        }
+
     }
 
     /**
@@ -1755,7 +1786,7 @@ public class NNOneN {
         }
     }
 
-    static final NNWordWeight computeWinnowWeight(int g) { // pour un groupe
+    static NNWordWeight computeWinnowWeight(int g) { // pour un groupe
 
         NNWordWeight res = new NNWordWeight(lastword, -1, g);
         float wig = 0;

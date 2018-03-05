@@ -1,3 +1,23 @@
+/**********
+    Copyright © 2003-2018 Olanto Foundation Geneva
+
+   This file is part of myCLASS.
+
+   myLCASS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    myCAT is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with myCAT.  If not, see <http://www.gnu.org/licenses/>.
+
+**********/
+
 package org.olanto.demo.myfirst;
 
 import org.olanto.idxvli.IdxConstant;
@@ -24,6 +44,7 @@ public class ConfigurationForCat implements IdxInit {
      * initialisation permanante des constantes. Ces constantes choisies
      * définitivement pour toute la durée de la vie de l'index.
      */
+    @Override
     public void InitPermanent() {
         DOC_MAXBIT = 18;
         WORD_MAXBIT = 18;
@@ -43,7 +64,7 @@ public class ConfigurationForCat implements IdxInit {
         
         //PASS_MODE=PassMode.ONE;
 
-        IDX_DONTINDEXTHIS = SomeConstant.ROOTDIR + "SIMPLE/config/dontindexthiswords.txt";
+        IDX_DONTINDEXTHIS = SomeConstant.ROOTDIR + "MYCLASS_MODEL/config/dontindexthiswords.txt";
 
         IDX_WITHDOCBAG = true;
         //IDX_INDEX_MFL = false;
@@ -83,20 +104,22 @@ public class ConfigurationForCat implements IdxInit {
      * constantes choisies définitivement pour toute la durée de la vie du
      * processus.
      */
+    @Override
     public void InitConfiguration() {
 
         // les directoire
-        COMLOG_FILE = SomeConstant.ROOTDIR + "SIMPLE_CLASS/data/first/common.log";
-        DETLOG_FILE = SomeConstant.ROOTDIR + "SIMPLE_CLASS/data/first/detail.log";
+        COMLOG_FILE = SomeConstant.ROOTDIR + "MYCLASS_MODEL/data/first/common.log";
+        DETLOG_FILE = SomeConstant.ROOTDIR + "MYCLASS_MODEL/data/first/detail.log";
 
-        String root = SomeConstant.ROOTDIR + "SIMPLE_CLASS/data/first";
-        String root0 = SomeConstant.ROOTDIR + "SIMPLE_CLASS/data/first/sto0";
+        String root = SomeConstant.ROOTDIR + "MYCLASS_MODEL/data/first";
+        String root0 = SomeConstant.ROOTDIR + "MYCLASS_MODEL/data/first/sto0";
         IdxConstant.COMMON_ROOT = root;
         IdxConstant.DOC_ROOT = root;
         IdxConstant.WORD_ROOT = root;
         SetObjectStoreRoot(root0, 0);
        
 // paramètre de fonctionnement
+ 
         CACHE_IMPLEMENTATION_INDEXING = implementationMode.FAST;
         KEEP_IN_CACHE = 90;
         INDEXING_CACHE_SIZE = 256 * MEGA;

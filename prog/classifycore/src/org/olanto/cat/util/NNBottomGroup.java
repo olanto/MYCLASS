@@ -1,5 +1,5 @@
 /**********
-    Copyright © 2003-2014 Olanto Foundation Geneva
+    Copyright © 2003-2018 Olanto Foundation Geneva
 
    This file is part of myCLASS.
 
@@ -86,6 +86,7 @@ public class NNBottomGroup{
     public static final byte TRAINDOC=1;
     static final byte NOTUSEDDOC=0;
     static final String SEPARATOR="\t";
+    
     
     /** contructeur par défaut
      */
