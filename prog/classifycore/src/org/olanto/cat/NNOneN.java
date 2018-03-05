@@ -33,15 +33,9 @@ import org.olanto.idxvli.util.BytesAndFiles;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
 import org.olanto.cat.mnn.Categorizer;
 import org.olanto.util.Timer;
 
@@ -538,7 +532,7 @@ public class NNOneN {
 
                 int[] docbag = alldocbag[id];
                 for (int n = 0; n < docbag.length; n++) {
-                    //System.out.println(id+","+n+","+docbag[n]+","+DocBag.MAXOCCINDOC);
+                    // System.out.println(id+","+n+","+docbag[n]+","+DocBag.MAXOCCINDOC);
                     wordusetrain[docbag[n] / DocBag.MAXOCCINDOC] = 0x4;
                     wordOcctrain[docbag[n] / DocBag.MAXOCCINDOC]++;
                 }

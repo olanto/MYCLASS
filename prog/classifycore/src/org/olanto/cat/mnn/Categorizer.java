@@ -131,7 +131,7 @@ public class Categorizer  {
     
     
     private void loadFeature(int j) {
-        System.out.println("load feature:"+j);
+       // System.out.println("load feature:"+j);
         if (nnc[j]==null){  // to be loaded
             totnotincache++;
             try {
@@ -237,7 +237,8 @@ public class Categorizer  {
             alfaNn = (float[]) p.readObject();
             groupinv = (Hashtable[]) p.readObject();
             maxgroup = (int[]) p.readObject();
-            worduse = (byte[][]) p.readObject();
+            //worduse = (byte[][]) p.readObject(); // for subgroup classication
+            worduse=null;// for subgroup classication
             lastfreemnn = p.readInt();
             firstmnn = (int[]) p.readObject();
             System.err.println("end of NNmany load:"+NNName);
@@ -265,7 +266,7 @@ public class Categorizer  {
 //            System.out.println("feature: "+i+", value: "+docbag[i]);
             int iiii=wordAtIdx[docbag[i]/DocBag.MAXOCCINDOC];  // with indirection
  //           System.out.println("iiii: "+iiii);
-            if (iiii!=notFind&&worduse[NNidx][iiii]>=0x4){// if not discard
+            if (iiii!=notFind){// for sub group &&worduse[NNidx][iiii]>=0x4){// if not discard
  //               System.out.println("process iiii: "+iiii);
                 loadFeature(iiii); // charge la feature
                 float wsdf=sdf[docbag[i]%DocBag.MAXOCCINDOC]; // eval feature weight
@@ -285,7 +286,7 @@ public class Categorizer  {
         float normalised=0;
         for (int i=0;i<docbag.length;i++){  // compute normalisation for this doc
             int iiii=wordAtIdx[docbag[i]/DocBag.MAXOCCINDOC];  // with indirection
-            if (iiii!=notFind&&worduse[NNidx][iiii]>=0x4){// if not discard
+            if (iiii!=notFind){// for sub group &&worduse[NNidx][iiii]>=0x4){// if not discard
                 normalised+=sdf[docbag[i]%DocBag.MAXOCCINDOC];
             }
         }
