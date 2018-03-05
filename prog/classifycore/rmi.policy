@@ -1,0 +1,14 @@
+// default permissions granted to all domains
+
+grant codeBase "file://c:/JG/prog/classifycore/*" {
+	permission java.security.AllPermission;
+
+};
+
+
+grant { 
+	// JG modifier pour le rmi
+	permission java.net.SocketPermission "*:1099-", "accept, connect, listen, resolve";
+	permission java.security.AllPermission;
+};
+
