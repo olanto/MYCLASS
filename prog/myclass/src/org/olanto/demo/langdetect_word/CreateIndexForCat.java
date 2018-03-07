@@ -19,9 +19,8 @@
  *
  *********
  */
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
-import org.olanto.demo.langdetect_word.*;
 import org.olanto.cat.util.SenseOS;
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.util.Timer;
@@ -38,12 +37,12 @@ public class CreateIndexForCat {
 
         id = new IdxStructure("NEW", new ConfigurationForCat());
 
-        id.indexdirOnlyCount(SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetectngram");// indexation du dossier 
+        id.indexdirOnlyCount(SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect");// indexation du dossier 
 
         id.flushIndexDoc();  //  vide les buffers       
 
         Timer t2 = new Timer("doc bag build");
-        id.indexdirBuildDocBag(SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetectngram");// indexation du dossier 
+        id.indexdirBuildDocBag(SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect");// indexation du dossier 
         t2.stop();
         id.flushIndexDoc();  //  vide les buffers       
         id.Statistic.global();

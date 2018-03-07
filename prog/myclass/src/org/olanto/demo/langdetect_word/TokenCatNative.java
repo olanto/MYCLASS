@@ -19,7 +19,7 @@
  *
  *********
  */
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
 import org.olanto.idxvli.DoParse;
 import static org.olanto.idxvli.IdxConstant.*;
@@ -52,12 +52,12 @@ public class TokenCatNative implements TokenDefinition {
         char r;
         try {
             while (!(Character.isLetter((char) c)) && (c != EOF)) {  // skip non letter
-                if ((char) c == '<') { // skip tag
-                    while ((c != EOF) && ((char) c != '>')) {
-                        c = a.in.read();
-                        a.poschar++;
-                    }
-                }
+//                if ((char) c == '<') { // skip tag
+//                    while ((c != EOF) && ((char) c != '>')) {
+//                        c = a.in.read();
+//                        a.poschar++;
+//                    }
+//                }
                 c = a.in.read();
                 a.poschar++;
             }

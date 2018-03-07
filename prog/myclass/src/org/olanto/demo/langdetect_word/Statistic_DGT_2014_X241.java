@@ -19,7 +19,7 @@
  *
  *********
  */
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

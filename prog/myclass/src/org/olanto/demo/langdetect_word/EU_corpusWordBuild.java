@@ -19,7 +19,7 @@
  *
  *********
  */
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -28,11 +28,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import org.olanto.util.Timer;
 
-public class EU_corpusBuild {      // is an application, not an applet !
+public class EU_corpusWordBuild {      // is an application, not an applet !
 
     static Timer t1 = new Timer("global time");
-    static final String mflfFile="C:\\MYCLASS_MODEL\\sample\\langdetect\\corpus_dgt2014.mflf";
-   static final String catFile="C:\\MYCLASS_MODEL\\sample\\langdetect\\corpus_dgt2014.cat";
+    static final String mflfFile="C:\\MYCLASS_MODEL\\sample\\langdetect\\corpus_dgt2014.mflf 100000";
+   static final String catFile="C:\\MYCLASS_MODEL\\sample\\langdetectngram\\corpus_5dgt2014.cat";
 
    /**
     * 

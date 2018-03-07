@@ -19,9 +19,8 @@
  *
  *********
  */
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
-import org.olanto.demo.langdetect_word.*;
 import org.olanto.cat.Experiment;
 import org.olanto.cat.NNOneN;
 import org.olanto.cat.util.NNBottomGroup;
@@ -53,8 +52,8 @@ public class ExperimentManual {
         id.Statistic.global();
 
         // path to catalog
-        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetectngram/corpus_dgt2014.cat";
-        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetectngram/EMPTY.cat";
+        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect/corpus_dgt2014.cat";
+        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect/EMPTY.cat";
 
         // load catalog at the specified level
 
@@ -66,8 +65,8 @@ public class ExperimentManual {
         NNOneN.init(signature, BootGroup, id, NNOneN.NORMALISED, NNOneN.SDF_SQUARE);
 
         Experiment x = new Experiment(
-                "ngram5", //            String experimentName,
-                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/langdetectngram/", //            String pathfileSave,
+                "worddetect", //            String experimentName,
+                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/langdetect/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //         boolean inmemory,
                 2,//             int categorylevel,

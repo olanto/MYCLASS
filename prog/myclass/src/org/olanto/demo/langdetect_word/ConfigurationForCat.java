@@ -18,7 +18,7 @@
 
 **********/
 
-package org.olanto.demo.langdetection;
+package org.olanto.demo.langdetect_word;
 
 
 import org.olanto.cat.util.SenseOS;
@@ -87,8 +87,8 @@ public class ConfigurationForCat implements IdxInit {
         IDX_MFLF_ENCODING = "UTF-8";
         //IDX_MFLF_ENCODING = "ISO-8859-1";
         WORD_MINLENGTH = 1;
-        WORD_MAXLENGTH = 12;
-        WORD_DEFINITION = new TokenCatNgram();
+        WORD_MAXLENGTH = 40;
+        WORD_DEFINITION = new TokenCatNative();
 
         WORD_USE_STEMMER = false;
         STEM_DOC = false;
@@ -110,11 +110,11 @@ public class ConfigurationForCat implements IdxInit {
     public void InitConfiguration() {
 
         // les directoire
-        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/langdetectngram/common.log";
-        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/detail.log";
+        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/langdetect/common.log";
+        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetect/detail.log";
 
-        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram";
-        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/sto0";
+        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetect";
+        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetect/sto0";
         IdxConstant.COMMON_ROOT = root;
         IdxConstant.DOC_ROOT = root;
         IdxConstant.WORD_ROOT = root;
