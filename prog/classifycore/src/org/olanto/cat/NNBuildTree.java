@@ -151,6 +151,9 @@ public class NNBuildTree {
     public static final int MODE_1=14;
     /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): MAINGROUP)
      */
+    public static final int MODE_2=18;
+    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): on 2 chars)
+     */
     public static final int MODE_4=16;
     /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): MAINGROUP)
      */
@@ -213,6 +216,7 @@ public class NNBuildTree {
         if (MODE_1347==mode) buildList_1347();
         if (MODE_1348==mode) buildList_1348();
         if (MODE_1==mode) buildList_1();
+       if (MODE_2==mode) buildList_2();
        if (MODE_4==mode) buildList_4();
         if (MODE_7==mode) buildList_7();
         if (MODE_8==mode) buildList_8();
@@ -277,7 +281,10 @@ public class NNBuildTree {
     static void buildList_1(){
         addNN(1,"");
     }
-    static void buildList_4(){
+    static void buildList_2(){
+        addNN(2,"");
+    }
+   static void buildList_4(){
         addNN(4,"");
     }
     static void buildList_7(){

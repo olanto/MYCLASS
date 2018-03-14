@@ -227,7 +227,7 @@ public class Categorizer  {
             NNT = (Hashtable) p.readObject();
             lastNNT = p.readInt();
             wordAtIdx = (int[]) p.readObject();
-            for (int i=0; i<wordAtIdx.length;i++)System.out.println(i+" "+wordAtIdx[i]);
+            //for (int i=0; i<wordAtIdx.length;i++)System.out.println(i+" "+wordAtIdx[i]);
             wordFreq = (int[]) p.readObject();
             idxcompress = (long[]) p.readObject();
             lengthcompress = (int[]) p.readObject();
@@ -237,7 +237,7 @@ public class Categorizer  {
             alfaNn = (float[]) p.readObject();
             groupinv = (Hashtable[]) p.readObject();
             maxgroup = (int[]) p.readObject();
-            //worduse = (byte[][]) p.readObject(); // for subgroup classication
+            worduse = (byte[][]) p.readObject(); // for subgroup classication put this in comment
             worduse=null;// for subgroup classication
             lastfreemnn = p.readInt();
             firstmnn = (int[]) p.readObject();
@@ -334,9 +334,9 @@ public class Categorizer  {
         System.out.println("docbag.length:"+dogbag.length);
        Guess[] choice=topGuessN(computeWinnowPosCompact(dogbag,net), maxchoice);
      
-       for (int i=0; i<maxchoice;i++){
-        System.out.println("guess: "+i+", "+choice[i].categorie);
-       }
+//       for (int i=0; i<maxchoice;i++){
+//        System.out.println("guess: "+i+", "+choice[i].categorie);
+//       }
             int maxfound=0;  // look for max cat found
         for (int i=0; i<maxchoice;i++){
             if (choice[i].catid==notFind) break;
@@ -345,6 +345,7 @@ public class Categorizer  {
         if (maxfound==0) return null; // nothing ...
         Guess[] guess=new Guess[maxfound];
         for (int i=0; i<maxfound;i++){
+           // System.out.println("debug xxxx:"+((String)groupinv[net].get(new Integer(choice[i].catid))));
             guess[i]=new Guess((String) groupinv[net].get(new Integer(choice[i].catid)),choice[i].catid,choice[i].weight);
         }
         return guess;
