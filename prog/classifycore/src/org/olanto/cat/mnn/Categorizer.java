@@ -328,10 +328,10 @@ public class Categorizer  {
      * @return liste des choix proposés
      */    
     public Guess[] classifyDocumentAndPonderate(String clue, String tolevel, int[] dogbag, int maxchoice){
-        System.out.println("guess for:"+tolevel+"."+clue);
+//        System.out.println("guess for:"+tolevel+"."+clue);
         int net=((Integer)NNT.get(tolevel+"."+clue)).intValue();  // get the NN
-        System.out.println("net:"+net);
-        System.out.println("docbag.length:"+dogbag.length);
+//        System.out.println("net:"+net);
+//        System.out.println("docbag.length:"+dogbag.length);
        Guess[] choice=topGuessN(computeWinnowPosCompact(dogbag,net), maxchoice);
      
 //       for (int i=0; i<maxchoice;i++){

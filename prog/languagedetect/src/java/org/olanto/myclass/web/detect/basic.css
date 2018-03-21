@@ -1,0 +1,29 @@
+/* 
+    Document   : basic
+    Created on : 5 oct. 2014, 15:18:14
+    Author     : simple
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+body {margin-left:22px; margin-top:22px; margin-right:22px;color:#000000; font-family:Arial,sans-serif;
+     font-size:medium}
+img { float:left}
+iform {color: gray;font-size:120%}
+input {color: gray;font-size:100%}
+select {color: gray;font-size:100%}
+h1 {color: gray;font-size:150%}
+h2{color: gray;font-size:120%}
+table {width:100%;border: none}
+table.ex {width:100%;border: none;padding:0px;}
+caption {border:1px dotted #6495ed;padding:5px;background-color:lightgrey;width:25%}
+th {padding:5px;background-color:#EEEEEE;color: gray;width:25%}
+td {padding:5px;background-color:#EEEEEE; text-align:left;}
+td.ex0 {padding:5px;background-color:#EEEEEE; text-align:left;width:10%}
+td.ex1 {padding:5px;background-color:#EEEEEE; text-align:left; width:45%}
+td.ex2 {padding:5px;background-color:#EEEEEE; text-align:left; width:45%}
+em {color:green; font-weight: bold;}
+a.reverse {font-weight: bold;} 
