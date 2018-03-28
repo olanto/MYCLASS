@@ -18,7 +18,8 @@
 
 **********/
 
-package org.olanto.demo.myfirst;
+package org.olanto.demo.langdetection;
+
 
 import org.olanto.cat.util.SenseOS;
 import org.olanto.idxvli.IdxConstant;
@@ -48,7 +49,7 @@ public class ConfigurationForCat implements IdxInit {
     @Override
     public void InitPermanent() {
         DOC_MAXBIT = 18;
-        WORD_MAXBIT = 18;
+        WORD_MAXBIT = 21;
         DOC_MAX = (int) Math.pow(2, DOC_MAXBIT);  // recalcule
         WORD_MAX = (int) Math.pow(2, WORD_MAXBIT); // recalcule
 
@@ -65,7 +66,7 @@ public class ConfigurationForCat implements IdxInit {
         
         //PASS_MODE=PassMode.ONE;
 
-        IDX_DONTINDEXTHIS = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/config/dontindexthiswords.txt";
+        IDX_DONTINDEXTHIS = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/config/dontindexthiswords_EMPTY.txt";
 
         IDX_WITHDOCBAG = true;
         //IDX_INDEX_MFL = false;
@@ -75,19 +76,19 @@ public class ConfigurationForCat implements IdxInit {
         /**
          * taille maximum des noms de documents
          */
-        DOC_SIZE_NAME = 32;
+        DOC_SIZE_NAME = 12;
 
 
-        WORD_MINOCCKEEP = 2;  // pour une indexation en deux passes
-        WORD_MAXOCCDOCKEEP = 40;  // pour une indexation en deux passes
+        WORD_MINOCCKEEP = 4;  // pour une indexation en deux passes
+        WORD_MAXOCCDOCKEEP = 100;  // pour une indexation en deux passes
         WORD_NFIRSTOFDOC = 600;
 
 
-        //IDX_MFLF_ENCODING = "UTF-8";
-        IDX_MFLF_ENCODING = "ISO-8859-1";
-        WORD_MINLENGTH = 2;
-        WORD_MAXLENGTH = 40;
-        WORD_DEFINITION = new TokenCatNative();
+        IDX_MFLF_ENCODING = "UTF-8";
+        //IDX_MFLF_ENCODING = "ISO-8859-1";
+        WORD_MINLENGTH = 1;
+        WORD_MAXLENGTH = 12;
+        WORD_DEFINITION = new TokenCatNgram();
 
         WORD_USE_STEMMER = false;
         STEM_DOC = false;
@@ -109,11 +110,11 @@ public class ConfigurationForCat implements IdxInit {
     public void InitConfiguration() {
 
         // les directoire
-        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/first/common.log";
-        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first/detail.log";
+        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/langdetectngram/common.log";
+        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/detail.log";
 
-        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first";
-        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first/sto0";
+        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram";
+        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/sto0";
         IdxConstant.COMMON_ROOT = root;
         IdxConstant.DOC_ROOT = root;
         IdxConstant.WORD_ROOT = root;

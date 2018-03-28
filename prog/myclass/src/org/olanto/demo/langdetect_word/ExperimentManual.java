@@ -19,7 +19,7 @@
  *
  *********
  */
-package org.olanto.demo.myfirst;
+package org.olanto.demo.langdetect_word;
 
 import org.olanto.cat.Experiment;
 import org.olanto.cat.NNOneN;
@@ -52,12 +52,12 @@ public class ExperimentManual {
         id.Statistic.global();
 
         // path to catalog
-        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/alpha/MAINGROUP_TRAIN.cat";
-        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/alpha/EMPTY.cat";
+        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect/corpus_dgt2014.cat";
+        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/langdetect/EMPTY.cat";
 
         // load catalog at the specified level
 
-        NNBottomGroup BootGroup = new NNBottomGroup(id, fntrain, fntest, NNOneN.CAT_MAINGROUP7, false, false);
+        NNBottomGroup BootGroup = new NNBottomGroup(id, fntrain, fntest, 2, false, false);
 
         t1 = new Timer("global time MAINGROUP --------------------------");
 
@@ -65,18 +65,18 @@ public class ExperimentManual {
         NNOneN.init(signature, BootGroup, id, NNOneN.NORMALISED, NNOneN.SDF_SQUARE);
 
         Experiment x = new Experiment(
-                "alphaMan", //            String experimentName,
-                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/first/", //            String pathfileSave,
+                "worddetect", //            String experimentName,
+                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/langdetect/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //         boolean inmemory,
-                3,//             int categorylevel,
+                2,//             int categorylevel,
                 // TRAIN -- parameters for the training
                 "", //           String prefix,
                 5, //            int repeatK,
                 1000, //         float qlevel,
                 1.06f, //        float add,
                 2, //            int minocc,
-                400000, //       int maxocc,
+                100000000, //       int maxocc,
                 300, //          float deltamin,
                 300, //          float deltamax,
                 false, //        boolean verbosetrain,
@@ -86,12 +86,14 @@ public class ExperimentManual {
                 3,//            int Nfirst,
                 true,//            boolean maintest,
                 true,//            boolean maintestGroupdetail,
-                true,//            boolean maintestDocumentdetail,
+                false,//            boolean maintestDocumentdetail,
                 true,//            boolean multitest,
                 true,//           boolean multitestGroupdetail ,
                 false //           boolean multitestOtherdetail 
                 );
         x.doIt();
+      NNOneN.ConfusionMatrix(false);
+        NNOneN.explainGroup(50, true);
         t1.stop();
     }
 }

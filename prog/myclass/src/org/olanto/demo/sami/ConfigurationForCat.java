@@ -18,7 +18,7 @@
 
 **********/
 
-package org.olanto.demo.myfirst;
+package org.olanto.demo.sami;
 
 import org.olanto.cat.util.SenseOS;
 import org.olanto.idxvli.IdxConstant;
@@ -109,11 +109,11 @@ public class ConfigurationForCat implements IdxInit {
     public void InitConfiguration() {
 
         // les directoire
-        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/first/common.log";
-        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first/detail.log";
+        COMLOG_FILE = SenseOS.getMYCLASS_ROOT()+ "MYCLASS_MODEL/data/sami/common.log";
+        DETLOG_FILE = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/sami/detail.log";
 
-        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first";
-        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/first/sto0";
+        String root = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/sami";
+        String root0 = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/sami/sto0";
         IdxConstant.COMMON_ROOT = root;
         IdxConstant.DOC_ROOT = root;
         IdxConstant.WORD_ROOT = root;

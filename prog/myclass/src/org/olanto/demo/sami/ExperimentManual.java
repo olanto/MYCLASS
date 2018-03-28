@@ -19,7 +19,7 @@
  *
  *********
  */
-package org.olanto.demo.myfirst;
+package org.olanto.demo.sami;
 
 import org.olanto.cat.Experiment;
 import org.olanto.cat.NNOneN;
@@ -52,12 +52,12 @@ public class ExperimentManual {
         id.Statistic.global();
 
         // path to catalog
-        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/alpha/MAINGROUP_TRAIN.cat";
-        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/alpha/EMPTY.cat";
+        String fntrain = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/sami/trainingData.cat";
+        String fntest = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/sami/EMPTY.cat";
 
         // load catalog at the specified level
 
-        NNBottomGroup BootGroup = new NNBottomGroup(id, fntrain, fntest, NNOneN.CAT_MAINGROUP7, false, false);
+        NNBottomGroup BootGroup = new NNBottomGroup(id, fntrain, fntest, NNOneN.CAT_CLASS, false, false);
 
         t1 = new Timer("global time MAINGROUP --------------------------");
 
@@ -65,8 +65,8 @@ public class ExperimentManual {
         NNOneN.init(signature, BootGroup, id, NNOneN.NORMALISED, NNOneN.SDF_SQUARE);
 
         Experiment x = new Experiment(
-                "alphaMan", //            String experimentName,
-                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/first/", //            String pathfileSave,
+                "samiWIKI", //            String experimentName,
+                SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/sami/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //         boolean inmemory,
                 3,//             int categorylevel,
@@ -87,11 +87,12 @@ public class ExperimentManual {
                 true,//            boolean maintest,
                 true,//            boolean maintestGroupdetail,
                 true,//            boolean maintestDocumentdetail,
-                true,//            boolean multitest,
-                true,//           boolean multitestGroupdetail ,
+                false,//            boolean multitest,
+                false,//           boolean multitestGroupdetail ,
                 false //           boolean multitestOtherdetail 
                 );
         x.doIt();
+        NNOneN.ConfusionMatrix(false);
         t1.stop();
     }
 }
