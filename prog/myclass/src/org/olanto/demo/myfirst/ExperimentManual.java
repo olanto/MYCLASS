@@ -4,7 +4,7 @@
  *
  * This file is part of myCLASS.
  *
- * myLCASS is free software: you can redistribute it and/or modify it under the
+ * myCLASS is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
@@ -69,7 +69,7 @@ public class ExperimentManual {
                 SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/first/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //         boolean inmemory,
-                3,//             int categorylevel,
+                NNOneN.CAT_CLASS,//             int categorylevel,
                 // TRAIN -- parameters for the training
                 "", //           String prefix,
                 5, //            int repeatK,

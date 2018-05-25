@@ -3,7 +3,7 @@
 
    This file is part of myCLASS.
 
-   myLCASS is free software: you can redistribute it and/or modify
+   myCLASS is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
     published by the Free Software Foundation, either version 3 of
     the License, or (at your option) any later version.
@@ -218,7 +218,31 @@ public class Categorizer  {
         }
     }
     
-    
+   private void resetFeatureForce() {
+        if (activeFeature > MAXFEATURE) {
+            int level = STARTLEVEL;
+            int cleared = 0;
+            while (cleared < (MAXFEATURE / FREECACHE)) {
+                for (int j = 0; j < maxused; j++) { // clear all feature at this freq
+                    if (nnc[j] != null && wordFreq[j] <= level) {
+                        nnc[j] = null;
+                        cleared++;
+                    }
+                }
+                if (verbosecache) {
+                    System.out.println("startlevel:" + level + " cleared:" + cleared);
+                }
+                level *= 2;
+            }
+            activeFeature -= cleared;
+            totclear++;
+            if (verbosecache) {
+                System.out.println("totclear:" + totclear);
+            }
+        }
+    }
+ 
+   
    private void load() {
         try {
             FileInputStream istream = new FileInputStream(fileName);
@@ -260,6 +284,13 @@ public class Categorizer  {
 //        System.out.println("NNidx: "+NNidx);
 //        System.out.println("maxgroup[NNidx]: "+maxgroup[NNidx]);
         resetFeature();
+
+        // if (activeFeature>MAXFEATURE) {resetFeatureALLForce();} 
+        if (activeFeature > MAXFEATURE) {
+            System.out.println("activeFeature: " + activeFeature + ", MAXFEATURE: " + MAXFEATURE);
+            resetFeatureForce();
+            finalstatistic();
+        }
         float[] cumul=new float[maxgroup[NNidx]];
         //showVector(docbag);
         for (int i=0;i<docbag.length;i++){

@@ -3,7 +3,7 @@
 
    This file is part of myCLASS.
 
-   myLCASS is free software: you can redistribute it and/or modify
+   myCLASS is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
     published by the Free Software Foundation, either version 3 of
     the License, or (at your option) any later version.
@@ -53,9 +53,9 @@ public class ConfigurationForCat implements IdxInit {
         DOC_MAX = (int) Math.pow(2, DOC_MAXBIT);  // recalcule
         WORD_MAX = (int) Math.pow(2, WORD_MAXBIT); // recalcule
 
-        WORD_IMPLEMENTATION = implementationMode.FAST;
-        DOC_IMPLEMENTATION = implementationMode.FAST;
-        OBJ_IMPLEMENTATION = implementationMode.FAST;
+        WORD_IMPLEMENTATION = implementationMode.XL;
+        DOC_IMPLEMENTATION = implementationMode.XL;
+        OBJ_IMPLEMENTATION = implementationMode.XL;
 
         /**
          * nbre d'object storage actif = 2^OBJ_PW2

@@ -4,7 +4,7 @@
  *
  * This file is part of myCLASS.
  *
- * myLCASS is free software: you can redistribute it and/or modify it under the
+ * myCLASS is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
@@ -131,13 +131,14 @@ public static String advise(String p) {
 
     public static void init() {  // init class
         if (id == null) {
+            System.out.println("MYCLASS_ROOT: "+SenseOS.getMYCLASS_ROOT());
             id = new IdxStructure("QUERY", new org.olanto.demo.langdetection.ConfigurationForCat());
             id.Statistic.global();
             String nnfile = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/mnn/langdetectngram.mnn";
             MM = new Categorizer(nnfile,
                     true, // chargement du réseau complet
-                    200, // maxclass
-                    2000, // cache size
+                    30, // maxclass
+                    1000, // cache size
                     16, // start level
                     4 // free cache
                     );
