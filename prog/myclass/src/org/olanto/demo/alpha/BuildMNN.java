@@ -41,7 +41,7 @@ public class BuildMNN{
         t1=new Timer("global time --------------------------------");
         
         
-        String nnfile=SomeConstant.ROOTDIR+"SIMPLE_CLASS/mnn/alpha.mnn";
+        String nnfile=SomeConstant.ROOTDIR+"MYCLASS_MODEL/data/langdetectngram/mnn/alpha.mnn";
         
         NNBuildTree.init(
         signature,

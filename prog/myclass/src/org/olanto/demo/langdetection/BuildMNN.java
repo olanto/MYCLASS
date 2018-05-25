@@ -3,7 +3,7 @@
 
    This file is part of myCLASS.
 
-   myLCASS is free software: you can redistribute it and/or modify
+   myCLASS is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
     published by the Free Software Foundation, either version 3 of
     the License, or (at your option) any later version.
@@ -73,7 +73,7 @@ public class BuildMNN{
         true,                      // sauver l'arbre
         NNBuildTree.MODE_2,      // stratégie de construction
         1,                      // nbr de réseaux
-        200,                     // somme de toutes les catégories de tous les réseaux
+        30,                     // somme de toutes les catégories de tous les réseaux
         1.05f,                     // alpha
         300.0f,300.0f,             // niveaux d'histeresis
         3,1000000,                 // min et max occurence

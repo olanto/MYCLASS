@@ -4,7 +4,7 @@
  *
  * This file is part of myCLASS.
  *
- * myLCASS is free software: you can redistribute it and/or modify it under the
+ * myCLASS is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
@@ -67,7 +67,7 @@ public class SenseOS {
     }
 
     /**
-     * @return the OS_TYPE windows ou unix
+     * @return the root folder for OS_TYPE windows ou unix
      */
     public static String getMYCLASS_ROOT() {
         if (MYCLASS_ROOT == null) {
@@ -77,7 +77,7 @@ public class SenseOS {
             if (OS_TYPE.equals(WINDOWS_FAMILIES)) {
                 MYCLASS_ROOT = "C:/";
             } else {
-                MYCLASS_ROOT = "/home/";
+                MYCLASS_ROOT = "/home/olanto/";
             }
         }
         return MYCLASS_ROOT;
