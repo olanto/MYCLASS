@@ -69,7 +69,7 @@ public class ExperimentManual {
                 SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/experiment/first/", //            String pathfileSave,
                 8, //            int nbproc,
                 true, //         boolean inmemory,
-                NNOneN.CAT_CLASS,//             int categorylevel,
+                NNOneN.CAT_SUBCLASS,//  int categorylevel,
                 // TRAIN -- parameters for the training
                 "", //           String prefix,
                 5, //            int repeatK,
