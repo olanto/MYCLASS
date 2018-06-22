@@ -94,7 +94,7 @@ public class ExperimentManual {
                 );
         x.doIt();
       NNOneN.ConfusionMatrix(false);
-        NNOneN.explainGroup(50, true);
+        NNOneN.explainGroup(50, false);
         t1.stop();
     }
 }
