@@ -137,7 +137,7 @@ public static String advise(String p) {
             String nnfile = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/mnn/langdetectngram.mnn";
             MM = new Categorizer(nnfile,
                     true, // chargement du réseau complet
-                    30, // maxclass
+                    22, // maxclass
                     1000, // cache size
                     16, // start level
                     4 // free cache

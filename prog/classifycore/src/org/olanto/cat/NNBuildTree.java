@@ -236,6 +236,7 @@ public class NNBuildTree {
         addNN(3,"");
         addNN(4,"");
         listGroup(1,3);
+        listGroup(1,4);
         listGroup(3,4);
     }
     

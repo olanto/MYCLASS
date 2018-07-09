@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>page to detect language</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1><img src="olanto.jpg"/> Home page LanguageDetect</h1>
+        <hr/>
+        <h3>Call by a URL</h3>
+        <p>Click here to have a <a target="_blank" href="http://localhost:8080/languagedetect/detect?content=culture des épinards">demo URL</a></p>
+        <hr/>
+        <h3>Call with a form</h3>
+        <form target="_blank" action="http://localhost:8080/languagedetect/detect" method="get">
+            Description : <br />
+            <textarea rows = "5" cols = "50" name = "content">
+            Enter text here...
+            </textarea>
+              <input type="submit" value="Submit">
+        </form>
+        More info here ...
+    </body>
+</html>

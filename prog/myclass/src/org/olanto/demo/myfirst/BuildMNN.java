@@ -20,12 +20,10 @@
 
 package org.olanto.demo.myfirst;
 
-import org.olanto.demo.alpha.*;
 import org.olanto.idxvli.IdxStructure;
 import org.olanto.cat.NNBuildTree;
 import org.olanto.cat.NNOneN;
 import org.olanto.cat.util.NNBottomGroup;
-import static org.olanto.cat.GetProp.*;
 import org.olanto.cat.util.SenseOS;
 import org.olanto.util.Timer;
 
@@ -63,16 +61,16 @@ public class BuildMNN{
         t1=new Timer("global time --------------------------------");
         
         
-        String nnfile=SomeConstant.ROOTDIR+"MYCLASS_MODEL/data/first/mnn/alpha.mnn";
+        String nnfile=SenseOS.getMYCLASS_ROOT()+"MYCLASS_MODEL/data/first/mnn/alpha.mnn";
         
         NNBuildTree.init(
         signature,
         BootGroup,                 //catégories et documents d'apprentissage
         id,                        //indexeur
         true,                      // sauver l'arbre
-        NNBuildTree.MODE_134,      // stratégie de construction
-        150,                      // nbr de réseaux
-        1200,                     // somme de toutes les catégories de tous les réseaux
+        NNBuildTree.MODE_1347,      // stratégie de construction
+        1000,                      // nbr de réseaux
+        10000,                     // somme de toutes les catégories de tous les réseaux
         1.06f,                     // alpha
         300.0f,300.0f,             // niveaux d'histeresis
         3,1000000,                 // min et max occurence
