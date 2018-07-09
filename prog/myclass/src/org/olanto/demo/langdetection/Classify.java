@@ -126,7 +126,7 @@ public class Classify {
             String nnfile = SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/data/langdetectngram/mnn/langdetectngram.mnn";
             MM = new Categorizer(nnfile,
                     true, // chargement du réseau complet
-                    200, // maxclass
+                    22, // maxclass
                     2000, // cache size
                     16, // start level
                     4 // free cache

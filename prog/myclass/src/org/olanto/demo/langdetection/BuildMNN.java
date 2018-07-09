@@ -73,7 +73,7 @@ public class BuildMNN{
         true,                      // sauver l'arbre
         NNBuildTree.MODE_2,      // stratégie de construction
         1,                      // nbr de réseaux
-        30,                     // somme de toutes les catégories de tous les réseaux
+        22,                     // somme de toutes les catégories de tous les réseaux
         1.05f,                     // alpha
         300.0f,300.0f,             // niveaux d'histeresis
         3,1000000,                 // min et max occurence
