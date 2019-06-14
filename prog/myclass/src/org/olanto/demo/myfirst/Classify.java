@@ -125,7 +125,7 @@ public class Classify {
         if (id == null) {
             System.out.println("-------- init indexer and HNN");
             id = new IdxStructure("QUERY", new ConfigurationForCat());
-            id.Statistic.global();         
+            id.Statistic.global();
             MM = new Categorizer(nnfile,
                     false, // chargement du r�seau complet
                     10000, // maxclass

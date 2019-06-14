@@ -45,8 +45,8 @@ public class NNLocalGroup {
         limitGroup[1] = 1;
         limitGroup[3] = 1;
         limitGroup[4] = 1;
-        limitGroup[7] = 10;
-        limitGroup[8] = 10;
+        limitGroup[7] = 1;
+        limitGroup[8] = 1;
         BootGroup = _BootGroup;
         Indexer = _Indexer;
         verbose = _verbose;
