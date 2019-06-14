@@ -51,6 +51,15 @@ public class NNOneN {
 
     private static Experiment collectResult;
 
+        /**
+     * @param DIRECT the DIRECT to set
+     */
+    public static void setDIRECT(boolean _DIRECT) {
+        DIRECT = _DIRECT;
+    }
+
+
+    
     /**
      * @param INMEMORY the INMEMORY to set
      */
@@ -130,6 +139,10 @@ public class NNOneN {
      * signature
      */
     private static String s = null;
+    /**
+     * catégorisation sans indirection
+     */
+    private static boolean DIRECT = false;
     /**
      * niveau 1 de catégorisation
      */
@@ -268,6 +281,23 @@ public class NNOneN {
 
     ;
 
+     /** initialisation du réseau. Le réseau est initialisé avec un groupe de document pour l'apprentissage et pour les tests.
+     * L'initialisation se fait une fois et plusieurs apprentissages et tests consécutifs sont possibles.
+     *
+     * @param _BootGroup les groupes de documents d'apprentissage et de test.
+     * @param _glue la structure d'index permettant de décoder les noms des documents et les termes indexés.
+     * @param _normalised normalisation ({NORMALISED} ou {UNNORMALISED}).
+     * @param _method méthode de pondération des neurones (SDF_ONE, SDF_SQUARE, SDF_N, SDF_LN).
+     * @param _DIRECT dont used indirection).
+     *
+     * NORMALISED et SDF_SQUARE donne les meilleurs résultats (dans les corpus testés)
+     */
+    public static void init(String _s, NNBottomGroup _BootGroup, IdxStructure _glue, boolean _normalised, int _method, boolean _DIRECT) {
+        DIRECT=_DIRECT;
+        init(_s,  _BootGroup,  _glue,  _normalised,  _method);
+    }
+   
+    
     /** initialisation du réseau. Le réseau est initialisé avec un groupe de document pour l'apprentissage et pour les tests.
      * L'initialisation se fait une fois et plusieurs apprentissages et tests consécutifs sont possibles.
      *
@@ -327,13 +357,26 @@ public class NNOneN {
     }
 
     static void computeWinnow(float[] cumul, int d) {
-        computeWinnowPosCompact(cumul, d);
-        normalisedFeature(cumul, d);
+        if (DIRECT) {
+            computeWinnowPosCompactDirect(cumul, d);
+            normalisedFeatureDirect(cumul, d);
+        } else {
+            
+            computeWinnowPosCompact(cumul, d);
+            normalisedFeature(cumul, d);
+        }
+
     }
 
-    static void correctWinnow(float[] cumul, int[] group, int d) {
-        correctWinnowPosCompact(cumul, group, d);
+
+      static void correctWinnow(float[] cumul, int[] group, int d) {
+        if (DIRECT) {
+            correctWinnowPosCompactDirect(cumul, group, d);
+        } else {
+            correctWinnowPosCompact(cumul, group, d);
+        }
     }
+  
 
     static void initWinnow() {
         worduse = new byte[maxused];
@@ -358,6 +401,13 @@ public class NNOneN {
 
     }
 
+      static void initWinnowDirect() {
+        worduse = null;
+
+        initWinnowPosCompact();
+        cumulShared = new float[maxgroup]; // init structure
+    }  
+    
     /* positive winnow and balanced implementation */
     static void computeWinnowPosCompact(float[] cumul, int d) {
 
@@ -384,6 +434,30 @@ public class NNOneN {
         }
     }
 
+    /* positive winnow and balanced implementation */
+    static void computeWinnowPosCompactDirect(float[] cumul, int d) {
+
+        for (int i = 0; i < maxgroup; i++) {
+            cumul[i] = 0;
+        } //equivaltent to cumul = new float[maxgroup];
+
+        int[] docbag = alldocbag[d];
+        for (int i = 0; i < docbag.length; i++) {
+            int iiii = docbag[i] / DocBag.MAXOCCINDOC;  // without indirection
+            float wsdf = sdf[docbag[i] % DocBag.MAXOCCINDOC]; // eval feature weight
+            for (int j = 0; j < maxgroup; j++) {
+                if (nnc[iiii][j] < 0)// negative
+                {
+                    cumul[j] += alfaNn[-nnc[iiii][j]] * wsdf;
+                } else // positive
+                {
+                    cumul[j] += alfaPn[nnc[iiii][j]] * wsdf;
+                }
+
+            }
+        }
+    }   
+    
     static void computeWinnowPosCompactOnVector(float[] cumul, int[] docbag) {
         cumul = new float[maxgroup];
         // showVector(docbag);
@@ -440,6 +514,33 @@ public class NNOneN {
         }
     }
 
+     static void correctWinnowPosCompactDirect(float[] cumul, int[] group, int d) {
+        int[] docbag = alldocbag[d];
+        //showVector(cumul);
+        for (int j = 0; j < maxgroup; j++) {
+            if (cumul[j] > qlevelminusdelta) { // predict in the group
+                if (!inGroup(group, j)) {// minimize if not ingroup
+                    for (int i = 0; i < docbag.length; i++) {
+                        int iiii = docbag[i] / DocBag.MAXOCCINDOC;  // without indirection
+                        if (nnc[iiii][j] > MINBYTE) {
+                            nnc[iiii][j]--;
+                        }
+                    }
+                }
+            }
+            if (cumul[j] < qlevelplusdelta) { // not in the group
+                if (inGroup(group, j)) {// reinforce
+                    for (int i = 0; i < docbag.length; i++) {
+                        int iiii = docbag[i] / DocBag.MAXOCCINDOC;  // without indirection
+                         if (nnc[iiii][j] < MAXBYTE) {
+                                nnc[iiii][j]++;
+                            }
+                    }
+                }
+            }
+        }
+    }  
+    
     static void initWinnowPosCompact() {
         nnc = new byte[maxused][maxgroup];
         for (int j = 0; j < maxused; j++) {
@@ -466,6 +567,19 @@ public class NNOneN {
         }
     }
 
+       static void normalisedFeatureDirect(float[] cumul, int d) {
+        if (normalisedFeature) {
+            int[] docbag = alldocbag[d];
+            float normalised = 0;
+            for (int i = 0; i < docbag.length; i++) {  // compute normalisation for this doc
+                normalised += sdf[docbag[i] % DocBag.MAXOCCINDOC];
+            }
+            for (int j = 0; j < maxgroup; j++) {  // normalised
+                cumul[j] /= normalised;
+            }
+        }
+    } 
+    
     static boolean testDocOK(int d) { // selecting doc for training
 
         int g = ActiveGroup.getMainGroup(d);
@@ -518,6 +632,40 @@ public class NNOneN {
         return false;
     }
 
+        static void initwordAtIdx() {
+        maxused = 0;
+        wordAtIdx = new int[lastword];
+        for (int j = 0; j < lastword; j++) {// translate
+            //           System.out.println("wordOcctrain:"+j+", "+wordOcctrain[j]); 
+            if (wordOcctrain[j] >= GLOBALMINOCC) {
+                wordAtIdx[j] = maxused;
+                maxused++;
+            } else {
+                wordAtIdx[j] = NOT_FOUND;
+            }
+        }
+
+        wordFreq = new int[maxused];
+        for (int j = 0; j < lastword; j++) {// compute freq
+
+            if (wordAtIdx[j] != NOT_FOUND) {
+                wordFreq[wordAtIdx[j]] = glue.getOccOfW(j); // document appearance
+
+            }
+        }
+
+    }
+
+           static void initwordAtIdxDirect() {
+        maxused = lastword;
+        wordAtIdx = null;
+        wordFreq = new int[maxused];
+        for (int j = 0; j < lastword; j++) {// compute freq
+            wordFreq[j] = glue.getOccOfW(j); // document appearance
+        }
+
+    }
+    
     static void avgLength() {
         Timer t1 = new Timer("avgLength()");
         int minlength = 999999999, maxlength = -1;
@@ -558,27 +706,37 @@ public class NNOneN {
         docbagMinLength = minlength;
         docbagMaxLength = maxlength;
 
-        maxused = 0;
-        wordAtIdx = new int[lastword];
-        for (int j = 0; j < lastword; j++) {// translate
-            //           System.out.println("wordOcctrain:"+j+", "+wordOcctrain[j]); 
-            if (wordOcctrain[j] >= GLOBALMINOCC) {
-                wordAtIdx[j] = maxused;
-                maxused++;
-            } else {
-                wordAtIdx[j] = NOT_FOUND;
-            }
+//        maxused = 0;
+//        wordAtIdx = new int[lastword];
+//        for (int j = 0; j < lastword; j++) {// translate
+//            //           System.out.println("wordOcctrain:"+j+", "+wordOcctrain[j]); 
+//            if (wordOcctrain[j] >= GLOBALMINOCC) {
+//                wordAtIdx[j] = maxused;
+//                maxused++;
+//            } else {
+//                wordAtIdx[j] = NOT_FOUND;
+//            }
+//        }
+//
+//        wordFreq = new int[maxused];
+//        for (int j = 0; j < lastword; j++) {// compute freq
+//
+//            if (wordAtIdx[j] != NOT_FOUND) {
+//                wordFreq[wordAtIdx[j]] = glue.getOccOfW(j); // document appearance
+//
+//            }
+//        }
+        
+        
+
+        
+        if (DIRECT) {
+            initwordAtIdxDirect();
+        } else {
+            initwordAtIdx();
         }
-
-        wordFreq = new int[maxused];
-        for (int j = 0; j < lastword; j++) {// compute freq
-
-            if (wordAtIdx[j] != NOT_FOUND) {
-                wordFreq[wordAtIdx[j]] = glue.getOccOfW(j); // document appearance
-
-            }
-        }
-
+        
+        
         float startwith;
         if (normalisedFeature) {
             //     startwith=qlevel; } // normalisation dans le calcul
@@ -687,14 +845,22 @@ public class NNOneN {
 
         Timer t1 = new Timer("TrainWinnow");
         //MemoryEconomizer.usedMemory("before initWinnow");
-        initWinnow();
+       if (DIRECT) {
+           System.out.println("DIRECT MODE");
+          initWinnowDirect();
+        } else {
+            initWinnow();
+        }
         BytesAndFiles.usedMemory("after init");
         //MemoryEconomizer.usedMemory("After initWinnow");
-        featureWinnow("filter ");
-        if (VERBOSE) {
+        if (DIRECT) {
+            System.out.println("filter DIRECT MODE");
+            nbfeatures = maxused;
+        } else {
             featureWinnow("filter ");
-            //
+
         }
+
         if (collectResult != null) {
             collectResult.maxgroup = maxgroup;
             collectResult.maxtrain = maxtrain;
@@ -1225,6 +1391,10 @@ public class NNOneN {
     }
 
     public static void initWordWeigth() {
+        if (DIRECT) {
+            System.err.print("*** error fatal: DIRECT must be set to false");
+            System.exit(0);
+        }
         wordWeigth = new float[maxused];
         for (int j = 0; j < lastword; j++) {// compute freq
             if (wordAtIdx[j] != NOT_FOUND) {
@@ -1234,7 +1404,10 @@ public class NNOneN {
     }
 
     public static void exportDocSVM(OutputStreamWriter exportdoc, int[] docbag, int gk) {
-        try {
+                if (DIRECT) {
+            System.err.print("*** error fatal: DIRECT must be set to false");
+            System.exit(0);
+        }try {
             exportdoc.write((gk + 1) + "");
             float norm = 0;
             for (int i = 0; i < docbag.length; i++) {
@@ -1704,7 +1877,10 @@ public class NNOneN {
     }
 
     static NNWordWeight computeWinnowWeight(int d, int g) {  // pour un document et un groupe
-
+        if (DIRECT) {
+            System.err.print("*** error fatal: DIRECT must be set to false");
+            System.exit(0);
+        }
         int[] docbag = alldocbag[d];
         NNWordWeight res = new NNWordWeight(docbag.length, d, g);
         float wig = 0;
@@ -1727,7 +1903,10 @@ public class NNOneN {
     }
 
     public static void dumpNN() {
-        for (int j = 0; j < lastword; j++) {// compute freq
+                if (DIRECT) {
+            System.err.print("*** error fatal: DIRECT must be set to false");
+            System.exit(0);
+        }for (int j = 0; j < lastword; j++) {// compute freq
             if (wordAtIdx[j] != NOT_FOUND) {
                 int freq = wordFreq[wordAtIdx[j]];
                 String word = glue.getStringforW(j);
@@ -1787,7 +1966,10 @@ public class NNOneN {
     }
 
     static NNWordWeight computeWinnowWeight(int g) { // pour un groupe
-
+        if (DIRECT) {
+            System.err.print("*** error fatal: DIRECT must be set to false");
+            System.exit(0);
+        }
         NNWordWeight res = new NNWordWeight(lastword, -1, g);
         float wig = 0;
         for (int i = 0; i < lastword; i++) {

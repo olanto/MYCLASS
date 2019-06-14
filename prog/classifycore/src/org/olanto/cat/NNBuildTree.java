@@ -1,75 +1,72 @@
-/**********
-    Copyright © 2003-2018 Olanto Foundation Geneva
-
-   This file is part of myCLASS.
-
-   myCLASS is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of
-    the License, or (at your option) any later version.
-
-    myCAT is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with myCAT.  If not, see <http://www.gnu.org/licenses/>.
-
-**********/
-
+/**
+ * ********
+ * Copyright © 2003-2018 Olanto Foundation Geneva
+ *
+ * This file is part of myCLASS.
+ *
+ * myCLASS is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * myCAT is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with myCAT. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *********
+ */
 package org.olanto.cat;
-
 
 import org.olanto.cat.util.NNLocalGroup;
 import org.olanto.cat.util.NNBottomGroup;
 import org.olanto.cat.util.RandomizeDoc;
 import org.olanto.idxvli.IdxStructure;
 import java.util.*;
+import org.olanto.idxvli.util.BytesAndFiles;
 
 /**
- * Génération d'un arbre de réseaux de neurones.
-  * <hr>
- * <b>principe de fonctionnement</b>
- * <p>Cette classe génére un arbre de réseau de neurone, pour un système interactif de catégorisation assistée.
- * <p>Les documents d'apprentissage doivent être indexés au préalable.
- * <p>On doit aussi posséder un catalogue d'apprentissage (celui de test peut être vide!).
- * <p>Après construction, nous obtenons trois fichiers:
- * <br>  MON_ARBRE_DE_RN.mnn : fichier contenant la description de l'arbre
- * <br>  MON_ARBRE_DE_RN.mnn.cmnn : fichier contenant les réseaux de neurones
- * <br>  MON_ARBRE_DE_RN.mnn.rmnn : fichier temporaire de travail (peut être effacé)
- * <p>Le fichier temporaire de travail est grand. son espace est égale au produit
- * du nombre des mots conservés par le nombre max de classes de tout l'arbre.
- * <p> dans l'example de l'IPC7, au niveau maingroup (4 niveaux dans l'arbre), il faut compter avec plus de 20'000 classes et 300'000 mots conservés.
- * Un fichier de 6 Gbytes est donc nécessaire.
- * <hr>
- * <b>détermination de la taille de l'arbre</b>
- * <p>pour un arbre à quatre niveau, dans le cas de l'IPC7, avec à chaque niveau, les valeurs suivantes:
+ * Génération d'un arbre de réseaux de neurones. <hr> <b>principe de
+ * fonctionnement</b> <p>Cette classe génére un arbre de réseau de neurone, pour
+ * un système interactif de catégorisation assistée. <p>Les documents
+ * d'apprentissage doivent être indexés au préalable. <p>On doit aussi posséder
+ * un catalogue d'apprentissage (celui de test peut être vide!). <p>Après
+ * construction, nous obtenons trois fichiers: <br> MON_ARBRE_DE_RN.mnn :
+ * fichier contenant la description de l'arbre <br> MON_ARBRE_DE_RN.mnn.cmnn :
+ * fichier contenant les réseaux de neurones <br> MON_ARBRE_DE_RN.mnn.rmnn :
+ * fichier temporaire de travail (peut être effacé) <p>Le fichier temporaire de
+ * travail est grand. son espace est égale au produit du nombre des mots
+ * conservés par le nombre max de classes de tout l'arbre. <p> dans l'example de
+ * l'IPC7, au niveau maingroup (4 niveaux dans l'arbre), il faut compter avec
+ * plus de 20'000 classes et 300'000 mots conservés. Un fichier de 6 Gbytes est
+ * donc nécessaire. <hr> <b>détermination de la taille de l'arbre</b> <p>pour un
+ * arbre à quatre niveau, dans le cas de l'IPC7, avec à chaque niveau, les
+ * valeurs suivantes:
  * <pre>
  *                          SECTION      CLASS   SUBCLASS    MAINGROUP
  *  nbr de catégories             8        120        500         4000
- * 
- *                           
+ *
+ *
  *  nbr de noeuds = 4 + 3*nbsection +2*nbclass+ nbsubclass
  *  soit          = 4 + 3*8         +2*121    + 700
- *                < 1000 
- *  On prendra 1000 pour être sur de couvrir les variations possibles           
- *</pre>
- * <hr>
- * <b>détermination du total des classes de l'arbre</b>
- * <p>pour un arbre à quatre niveau, dans le cas de l'IPC7, avec à chaque niveau, les valeurs suivantes:
+ *                < 1000
+ *  On prendra 1000 pour être sur de couvrir les variations possibles
+ *</pre> <hr> <b>détermination du total des classes de l'arbre</b> <p>pour un
+ * arbre à quatre niveau, dans le cas de l'IPC7, avec à chaque niveau, les
+ * valeurs suivantes:
  * <pre>
  *                          SECTION      CLASS   SUBCLASS    MAINGROUP
  *  nbr de catégories             8        120        700         7000
- * 
- *                           
+ *
+ *
  *  nbr de classes = 4*nbmaingroup +3*nbsubclass+ 2*nbclass + nbsection
  *  soit          =  4*7000        +3*700       + 2*120     + 8
- *                <  31000 
- *  On prendra 31000 pour être sur de couvrir les variations possibles           
- *</pre>
- * <hr>
- * <b>Exemple de programme pour construire un arbre de réseaux</b>
+ *                <  31000
+ *  On prendra 31000 pour être sur de couvrir les variations possibles
+ *</pre> <hr> <b>Exemple de programme pour construire un arbre de réseaux</b>
  * <pre>
  * <hr>
  * <b>Exemple de programme pour construire un arbre de réseaux</b>
@@ -110,206 +107,301 @@ import java.util.*;
  *        );
  * </pre>
  */
-
 public class NNBuildTree {
-    
-    static boolean verbose=false; // no comment
+
+    static boolean verbose = false; // no comment
     static IdxStructure id;
-    
-    static float alpha=1.03f;
-    static float deltamin=300;
-    static float deltamax=300;
-    static int minocc=4;
-    static int maxnbocc=50000;
-    static int nfirst=4;
-    static int repeatK=5;
-    
-    static boolean save=true;
-    /** Stratégie de construction de l'arbre (3 choix: SECTION,CLASS,SUBBLASSP)
+    static float alpha = 1.03f;
+    static float deltamin = 300;
+    static float deltamax = 300;
+    static int minocc = 4;
+    static int maxnbocc = 50000;
+    static int nfirst = 4;
+    static int repeatK = 5;
+    private static boolean directMode = false;
+    static boolean save = true;
+    /**
+     * Stratégie de construction de l'arbre (3 choix: SECTION,CLASS,SUBBLASSP)
      */
-    public static final int MODE_134=0;
-    /** Stratégie de construction de l'arbre (2 choix: SECTION,SUBBLASS)
+    public static final int MODE_134 = 0;
+    /**
+     * Stratégie de construction de l'arbre (2 choix: SECTION,SUBBLASS)
      */
-    public static final int MODE_104=1;
-    /** Stratégie de construction de l'arbre (2 choix: CLASS,SUBBLASS)
+    public static final int MODE_104 = 1;
+    /**
+     * Stratégie de construction de l'arbre (2 choix: CLASS,SUBBLASS)
      */
-    public static final int MODE_034=2;
-    /** Stratégie de construction de l'arbre (4 choix: SECTION,CLASS,SUBBLASS,MAINGROUP)
+    public static final int MODE_034 = 2;
+    /**
+     * Stratégie de construction de l'arbre (4 choix:
+     * SECTION,CLASS,SUBBLASS,MAINGROUP)
      */
-    public static final int MODE_1347=10;
-    /** Stratégie de construction de l'arbre (pour les tests seulement Perfect Sect + 2 choix  (calcul sur Mode_134): SECTION,CLASS,SUBBLASS)
+    public static final int MODE_1347 = 10;
+    /**
+     * Stratégie de construction de l'arbre (pour les tests seulement Perfect
+     * Sect + 2 choix (calcul sur Mode_134): SECTION,CLASS,SUBBLASS)
      */
-   public static final int MODE_1348=20;
-    /** Stratégie de construction de l'arbre (pour les tests seulement Perfect Sect + 2 choix  (calcul sur Mode_134): SECTION,CLASS,SUBBLASS)
+    public static final int MODE_1348 = 20;
+    /**
+     * Stratégie de construction de l'arbre
+     * SECTION,CLASS,SUBBLAS,MAINGROUP,GROUP)
      */
-    public static final int MODE_P34=3;
-    /** Stratégie de construction de l'arbre (pour les tests seulement Perfect Sect + 1 choix  (calcul sur Mode_104): SECTION,SUBBLASS)
+    public static final int MODE_134814 = 30;
+    /**
+     * Stratégie de construction de l'arbre (pour les tests seulement Perfect
+     * Sect + 2 choix (calcul sur Mode_134): SECTION,CLASS,SUBBLASS)
      */
-    public static final int MODE_P04=4;
-    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): SECTION)
+    public static final int MODE_P34 = 3;
+    /**
+     * Stratégie de construction de l'arbre (pour les tests seulement Perfect
+     * Sect + 1 choix (calcul sur Mode_104): SECTION,SUBBLASS)
      */
-    public static final int MODE_1=14;
-    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): MAINGROUP)
+    public static final int MODE_P04 = 4;
+    /**
+     * Stratégie de construction de l'arbre (1 choix (un seul réseau!): SECTION)
      */
-    public static final int MODE_2=18;
-    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): on 2 chars)
+    public static final int MODE_1 = 14;
+    /**
+     * Stratégie de construction de l'arbre (1 choix (un seul réseau!):
+     * MAINGROUP)
      */
-    public static final int MODE_4=16;
-    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): MAINGROUP)
+    public static final int MODE_2 = 18;
+    /**
+     * Stratégie de construction de l'arbre (1 choix (un seul réseau!): on 2
+     * chars)
      */
-    public static final int MODE_7=15;
-    /** Stratégie de construction de l'arbre (1 choix (un seul réseau!): MAINGROUP)
+    public static final int MODE_4 = 16;
+    /**
+     * Stratégie de construction de l'arbre (1 choix (un seul réseau!):
+     * MAINGROUP)
      */
-    public static final int MODE_8=17;
-    
+    public static final int MODE_7 = 15;
+    /**
+     * Stratégie de construction de l'arbre (1 choix (un seul réseau!):
+     * MAINGROUP)
+     */
+    public static final int MODE_8 = 17;
     static NNMany MM;
     static NNBottomGroup BootGroup;
-    
-    /** Création de la structure statique de génération de l'arbre.
+
+    /**
+     * @return the directMode
      */
-    public NNBuildTree(){}
-    
-    /** initialise et construit l'arbre de réseaux de neurones.
+    public static boolean isDirectMode() {
+        return directMode;
+    }
+
+    /**
+     * @param aDirectMode the directMode to set
+     */
+    public static void setDirectMode(boolean aDirectMode) {
+        directMode = aDirectMode;
+    }
+
+    /**
+     * Création de la structure statique de génération de l'arbre.
+     */
+    public NNBuildTree() {
+    }
+
+    /**
+     * initialise et construit l'arbre de réseaux de neurones.
+     *
      * @param _BootGroup Groupe de catégories et jeu de documents
      * @param _id Indexeur initialier avec le corpus (sac de mots)
      * @param _save true -> finaliser et sauver l'arbre de réseaux de neurones
      * false -> ne pas le faire (utile pour les tests seulement)
-     * @param mode stratégie de construction de l'arbre (voir constante MODE_nnn)
+     * @param mode stratégie de construction de l'arbre (voir constante
+     * MODE_nnn)
      * @param MAXNN nombre maximum de noeuds (réseaux de neurones) de l'arbre
      * @param MAXCLASS somme de toutes les classes de tous les noeuds de l'arbre
      * @param _alpha facteur de promotion/démotion de Winnow-U
      * @param _deltamin zone négative d'histerésis de Winnow-U
      * @param _deltamax zone positive d'histerésis de Winnow-U
-     * @param _minocc nombre mininum d'occurences dans les documents d'apprentissage d'um mot pour être retenu dans le réseau de neurones.
-     * @param _maxnbocc nombre maximum d'occurences dans les documents d'apprentissage d'um mot pour être retenu dans le réseau de neurones.
+     * @param _minocc nombre mininum d'occurences dans les documents
+     * d'apprentissage d'um mot pour être retenu dans le réseau de neurones.
+     * @param _maxnbocc nombre maximum d'occurences dans les documents
+     * d'apprentissage d'um mot pour être retenu dans le réseau de neurones.
      * @param _nfirst nombre de choix pris en compte (pour les tests seulement)
      * @param _repeatK nombre de cycle d'apprentissage
-     * @param nnfile Nom du fichier de résultat pour stocker l'arbre du réseau de neurones
+     * @param nnfile Nom du fichier de résultat pour stocker l'arbre du réseau
+     * de neurones
      */
     public static void init(String sign, NNBottomGroup _BootGroup, IdxStructure _id, boolean _save, int mode,
-    int MAXNN, int MAXCLASS,
-    float _alpha,float _deltamin,float _deltamax, int _minocc,int _maxnbocc,
-    int _nfirst, int _repeatK,
-    String nnfile
-    
-    ){
-        id=_id;
-        BootGroup=_BootGroup;
-        save=_save;
-        
-        alpha=_alpha;
-        deltamin=_deltamin;
-        deltamax=_deltamax;
-        minocc=_minocc;
-        maxnbocc=_maxnbocc;
-        nfirst=_nfirst;
-        repeatK=_repeatK;
-        
-        NNOneN.GLOBALMINOCC=minocc;
+            int MAXNN, int MAXCLASS,
+            float _alpha, float _deltamin, float _deltamax, int _minocc, int _maxnbocc,
+            int _nfirst, int _repeatK,
+            String nnfile) {
+        id = _id;
+        BootGroup = _BootGroup;
+        save = _save;
+
+        alpha = _alpha;
+        deltamin = _deltamin;
+        deltamax = _deltamax;
+        minocc = _minocc;
+        maxnbocc = _maxnbocc;
+        nfirst = _nfirst;
+        repeatK = _repeatK;
+
+        NNOneN.GLOBALMINOCC = minocc;
         //NNOneN.INMEMORY=false;
-        NNOneN.init(sign, BootGroup,id,NNOneN.NORMALISED,NNOneN.SDF_SQUARE); // initialise le réseau de neurone ...
-        MM=new NNMany("WIPO alfa",  NNMany.MODE_LEARN, nnfile,
-        MAXNN,MAXCLASS );
-        if (MODE_134==mode) buildList_134();
-        if (MODE_104==mode) buildList_104();
-        if (MODE_034==mode) buildList_034();
-        if (MODE_1347==mode) buildList_1347();
-        if (MODE_1348==mode) buildList_1348();
-        if (MODE_1==mode) buildList_1();
-       if (MODE_2==mode) buildList_2();
-       if (MODE_4==mode) buildList_4();
-        if (MODE_7==mode) buildList_7();
-        if (MODE_8==mode) buildList_8();
-        if (save) MM.save();
+        NNOneN.init(sign, BootGroup, id, NNOneN.NORMALISED, NNOneN.SDF_SQUARE, directMode); // initialise le réseau de neurone ...
+        MM = new NNMany("WIPO alfa", NNMany.MODE_LEARN, nnfile,
+                MAXNN, MAXCLASS);
+        if (MODE_134 == mode) {
+            buildList_134();
+        }
+        if (MODE_104 == mode) {
+            buildList_104();
+        }
+        if (MODE_034 == mode) {
+            buildList_034();
+        }
+        if (MODE_1347 == mode) {
+            buildList_1347();
+        }
+        if (MODE_1348 == mode) {
+            buildList_1348();
+        }
+        if (MODE_134814 == mode) {
+            buildList_134814();
+        }
+        if (MODE_1 == mode) {
+            buildList_1();
+        }
+        if (MODE_2 == mode) {
+            buildList_2();
+        }
+        if (MODE_4 == mode) {
+            buildList_4();
+        }
+        if (MODE_7 == mode) {
+            buildList_7();
+        }
+        if (MODE_8 == mode) {
+            buildList_8();
+        }
+        if (save) {
+            MM.save();
+        }
     }
-    
-    static void addNN(int grouplength, String prefixgroup){
-        NNOneN.TrainWinnow(grouplength,prefixgroup,repeatK,1000,alpha,minocc,maxnbocc,deltamin,deltamax,false,false,100);
+
+    static void addNN(int grouplength, String prefixgroup) {
+        NNOneN.TrainWinnow(grouplength, prefixgroup, repeatK, 1000, alpha, minocc, maxnbocc, deltamin, deltamax, false, false, 100);
         //NNOne.testWinnow(false);
-        if (verbose) NNOneN.testWinnow4(false,false,nfirst);
-        if (verbose) NNOneN.testWinnow4Multi(false,nfirst);
+        if (verbose) {
+            NNOneN.testWinnow4(false, false, nfirst);
+        }
+        if (verbose) {
+            NNOneN.testWinnow4Multi(false, nfirst);
+        }
         MM.RecordNN();
     }
-    
-    static void buildList_134(){
-        addNN(1,"");
-        addNN(3,"");
-        addNN(4,"");
-        listGroup(1,3);
-        listGroup(1,4);
-        listGroup(3,4);
+
+    static void buildList_134() {
+        addNN(1, "");
+        addNN(3, "");
+        addNN(4, "");
+        listGroup(1, 3);
+        listGroup(1, 4);
+        listGroup(3, 4);
     }
-    
-    static void buildList_104(){
-        addNN(1,"");
+
+    static void buildList_104() {
+        addNN(1, "");
         //addNN(3,"");
         //addNN(4,"");
-        listGroup(1,4);
+        listGroup(1, 4);
     }
-    
-    static void buildList_034(){
-        addNN(3,"");
+
+    static void buildList_034() {
+        addNN(3, "");
         //addNN(3,"");
         //addNN(4,"");
-        listGroup(3,4);
+        listGroup(3, 4);
     }
-    
-    static void buildList_1347(){
-       addNN(7,"");
-        addNN(4,"");
-        addNN(3,"");
-        addNN(1,"");
-        listGroup(1,3);
-        listGroup(1,4);
-        listGroup(1,7);
-        listGroup(3,4);
-        listGroup(3,7);
-        listGroup(4,7);
+
+    static void buildList_1347() {
+        addNN(7, "");
+        addNN(4, "");
+        addNN(3, "");
+        addNN(1, "");
+        listGroup(1, 3);
+        listGroup(1, 4);
+        listGroup(1, 7);
+        listGroup(3, 4);
+        listGroup(3, 7);
+        listGroup(4, 7);
     }
-    static void buildList_1348(){
-       addNN(8,"");
-        addNN(4,"");
-        addNN(3,"");
-        addNN(1,"");
-        listGroup(1,3);
-        listGroup(1,4);
-        listGroup(1,8);
-        listGroup(3,4);
-        listGroup(3,8);
-        listGroup(4,8);
+
+    static void buildList_1348() {
+        addNN(8, "");
+        addNN(4, "");
+        addNN(3, "");
+        addNN(1, "");
+        listGroup(1, 3);
+        listGroup(1, 4);
+        listGroup(1, 8);
+        listGroup(3, 4);
+        listGroup(3, 8);
+        listGroup(4, 8);
     }
-    
-    static void buildList_1(){
-        addNN(1,"");
+
+    static void buildList_134814() {
+        addNN(14, "");
+        BytesAndFiles.usedMemory("after build 14");
+        System.gc();
+        BytesAndFiles.usedMemory("before build 8");
+        addNN(1, "");
+        addNN(8, "");
+        addNN(3, "");
+        addNN(4, "");
+        listGroup(1, 3);
+        listGroup(1, 4);
+        listGroup(1, 8);
+        listGroup(1, 14);
+        listGroup(3, 4);
+        listGroup(3, 8);
+        listGroup(3, 14);
+        listGroup(4, 8);
+        listGroup(4, 14);
+        listGroup(8, 14);
     }
-    static void buildList_2(){
-        addNN(2,"");
+
+    static void buildList_1() {
+        addNN(1, "");
     }
-   static void buildList_4(){
-        addNN(4,"");
+  
+    static void buildList_2() {
+        addNN(2, "");
     }
-    static void buildList_7(){
-        addNN(7,"");
+    static void buildList_4() {
+        addNN(4, "");
     }
-    
-    static void buildList_8(){
-        addNN(8,"");
+
+    static void buildList_7() {
+        addNN(7, "");
     }
-    
-    static void listGroup(int fromlevel, int tolevel){
-        System.out.println("-------------from:"+fromlevel+" to:"+tolevel+" -------------------------------");
+
+    static void buildList_8() {
+        addNN(8, "");
+    }
+
+    static void listGroup(int fromlevel, int tolevel) {
+        System.out.println("-------------from:" + fromlevel + " to:" + tolevel + " -------------------------------");
         Hashtable groupinv;
         int maxgroup;
-        
-        RandomizeDoc.init(id, BootGroup, "" ); // reset all preceding computation, get all doc
-        NNLocalGroup ActiveList=new NNLocalGroup(BootGroup, id, fromlevel,false);
-        groupinv=ActiveList.groupinv;   // save document class
-        maxgroup=ActiveList.maxgroup;
-        for (int i=0;i<maxgroup;i++){
-            addNN(tolevel,(String)groupinv.get(new Integer(i)));
-            
+
+        RandomizeDoc.init(id, BootGroup, ""); // reset all preceding computation, get all doc
+        NNLocalGroup ActiveList = new NNLocalGroup(BootGroup, id, fromlevel, false);
+        groupinv = ActiveList.groupinv;   // save document class
+        maxgroup = ActiveList.maxgroup;
+        for (int i = 0; i < maxgroup; i++) {
+            addNN(tolevel, (String) groupinv.get(new Integer(i)));
+
         }
-        
-        
+
+
     }
 }

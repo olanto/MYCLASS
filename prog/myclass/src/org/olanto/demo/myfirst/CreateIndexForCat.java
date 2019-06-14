@@ -38,6 +38,9 @@ public class CreateIndexForCat {
         id = new IdxStructure("NEW", new ConfigurationForCat());
 
         id.indexdirOnlyCount(SenseOS.getMYCLASS_ROOT() + "MYCLASS_MODEL/sample/alpha");// indexation du dossier 
+            
+            System.out.println("MAXOCCINDOC:"+org.olanto.idxvli.extra.DocBag.MAXOCCINDOC);
+        
 
         id.flushIndexDoc();  //  vide les buffers       
 
