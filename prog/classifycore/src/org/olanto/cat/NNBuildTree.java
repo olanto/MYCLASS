@@ -121,6 +121,10 @@ public class NNBuildTree {
     private static boolean directMode = false;
     static boolean save = true;
     /**
+     * Stratégie de construction de l'arbre RCL ( 14 FROM, 28 FROMTO)
+     */
+    public static final int MODE_1428 = 40;
+    /**
      * Stratégie de construction de l'arbre (3 choix: SECTION,CLASS,SUBBLASSP)
      */
     public static final int MODE_134 = 0;
@@ -282,6 +286,9 @@ public class NNBuildTree {
         if (MODE_8 == mode) {
             buildList_8();
         }
+        if (MODE_1428 == mode) {
+            buildList_1428();
+        }
         if (save) {
             MM.save();
         }
@@ -369,6 +376,13 @@ public class NNBuildTree {
         listGroup(8, 14);
     }
 
+    static void buildList_1428() {
+//        addNN(28, "");
+//        addNN(14, "");
+        listGroup(14, 28);
+    }
+   
+    
     static void buildList_1() {
         addNN(1, "");
     }
