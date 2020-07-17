@@ -217,6 +217,11 @@ public class Categorizer {
                     System.out.println("startlevel:" + level + " cleared:" + cleared);
                 }
                 level *= 2;
+                if (level==0) {
+                    resetFeatureALL();
+                    System.out.println("resetFeatureALL:"+ cleared);
+                    return;
+                }
             }
             activeFeature -= cleared;
             totclear++;
@@ -241,6 +246,11 @@ public class Categorizer {
                     System.out.println("startlevel:" + level + " cleared:" + cleared);
                 }
                 level *= 2;
+                if (level==0) {
+                    resetFeatureALLForce();
+                    System.out.println("resetFeatureALLForce:"+ cleared);
+                    return;
+                }
             }
             activeFeature -= cleared;
             totclear++;
@@ -318,7 +328,9 @@ public class Categorizer {
         //showVector(docbag);
         for (int i = 0; i < docbag.length; i++) {
 //            System.out.println("feature: "+i+", value: "+docbag[i]);
-            int iiii = docbag[i] / DocBag.MAXOCCINDOC;  // without indirection
+            // int iiii = docbag[i] / DocBag.MAXOCCINDOC;  // without indirection
+            int iiii = wordAtIdx[docbag[i] / DocBag.MAXOCCINDOC];  // keep indirection but not check discard
+            if (iiii<maxused && iiii>=0){  // check inside ...
             //System.out.println("iiii: "+iiii);
                 loadFeature(iiii); // charge la feature
                 float wsdf = sdf[docbag[i] % DocBag.MAXOCCINDOC]; // eval feature weight
@@ -332,6 +344,7 @@ public class Categorizer {
                         cumul[j] += alfaPn[nnc[iiii][firstmnn[NNidx] + j]] * wsdf;
                     }
                 }
+            }
             }
         
         float normalised = 0;
@@ -432,7 +445,7 @@ public class Categorizer {
      * @return liste des choix proposés
      */
     public Guess[] classifyDocumentAndPonderate(String clue, String tolevel, int[] dogbag, int maxchoice) {
-        System.out.println("guess for:" + tolevel + "." + clue);
+//        System.out.println("guess for:" + tolevel + "." + clue);
         int net = ((Integer) NNT.get(tolevel + "." + clue)).intValue();  // get the NN
 //        System.out.println("net:"+net);
 //        System.out.println("docbag.length:"+dogbag.length);
